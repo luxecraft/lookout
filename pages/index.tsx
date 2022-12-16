@@ -23,7 +23,6 @@ export default function Home() {
             width={40}
           />
         </div>
-
         <SearchBar />
         <div className="p-10">
           <HitList />
