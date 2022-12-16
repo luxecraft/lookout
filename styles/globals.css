@@ -28,3 +28,28 @@ a {
     background: black;
   }
 }
+
+@font-face {
+  font-family: "Silkscreen-Regular";
+  src: url("../public/fonts/Silkscreen-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Silkscreen-Bold";
+  src: url("../public/fonts/Silkscreen-Bold.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.blurry-circle {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
