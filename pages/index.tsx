@@ -1,5 +1,8 @@
 import Head from "next/head";
 import Image from "next/image";
+import { Hits } from "react-instantsearch-dom";
+import HitList from "../components/HitList";
+import SearchBar from "../components/SearchBar";
 
 export default function Home() {
   return (
@@ -10,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen flex items-center justify-center">
+      <main className="min-h-screen flex flex-col items-center justify-center">
         <div className="flex gap-10 items-center">
           <h1 className="text-white text-3xl font-mono">Supabase Hackathon</h1>
           <img
@@ -19,6 +22,11 @@ export default function Home() {
             height={40}
             width={40}
           />
+        </div>
+
+        <SearchBar />
+        <div className="p-10">
+          <HitList />
         </div>
       </main>
 
