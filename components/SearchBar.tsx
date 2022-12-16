@@ -10,7 +10,7 @@ const Searcher = ({ currentRefinement, refine }) => {
 
   useEffect(() => {
     const listener = (e) => {
-      if (e.key === "Tab") {
+      if (e.key === "Tab" && query !== "") {
         setLabels([...labels, query]);
         setQuery("");
       }
@@ -39,11 +39,10 @@ const Searcher = ({ currentRefinement, refine }) => {
 
   return (
     <div className="fixed w-full bottom-10">
-      <div className="relative flex py-2 overflow-scroll items-center justify-start px-4 w-1/2 mx-auto bg-black/30 shadow-lg font-silkRegular border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
+      <div className="relative flex py-2 dark:text-white text-black overflow-scroll items-center justify-start px-4 w-1/2 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silkRegular border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
         <MagnifyingGlass
-          className="mr-2"
+          className="mr-2 text-black dark:text-white"
           size={20}
-          color="#fcf8f8"
           weight="bold"
         />
         <div className="flex gap-2">
@@ -51,18 +50,17 @@ const Searcher = ({ currentRefinement, refine }) => {
             return (
               <div
                 key={i}
-                className={`px-2 flex items-center rounded-md bg-white/30
+                className={`px-2 flex items-center rounded-md dark:bg-black/30 bg-white/30
                 ${
                   latestLabelHighlighted &&
                   i === labels.length - 1 &&
-                  "bg-white/60"
+                  "bg-white/60 dark:bg-black/60"
                 }
                 `}
               >
                 <BookmarkSimple
-                  className="mr-1"
+                  className="mr-1 text-black dark:text-white"
                   size={16}
-                  color="#fcf8f8"
                   weight="fill"
                 />
 
