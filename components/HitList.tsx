@@ -17,7 +17,7 @@ const Hits = ({ hits }) => (
     <Masonry className="flex" breakpointCols={breakPointObj}>
       {hits.map((hit) => (
         <div className="w-max m-4" key={hit.id}>
-          <div className="relative shadow-xl hover:scale-105 duration-500 skew-y-3 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
+          <div className="relative shadow-xl hover:scale-105 duration-500 skew-y-2 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
             <div className="absolute h-full w-full duration-500  hover:bg-white/40 z-40" />
             <img
               src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
