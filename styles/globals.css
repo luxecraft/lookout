@@ -98,6 +98,10 @@ a {
   animation: fadeout 0.5s ease;
 }
 
+.imgCard {
+  animation: fadein 0.8s ease;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

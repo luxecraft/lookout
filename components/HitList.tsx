@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Masonry from "react-masonry-css";
-import { isEqual } from 'lodash';
+import { isEqual } from "lodash";
 // import Image from 'next/image';
 import { connectInfiniteHits } from "react-instantsearch-dom";
 
@@ -43,20 +43,20 @@ const Hits = ({ hits, hasMore, refineNext }) => {
         3000: 2,
         2000: 2,
         1200: 2,
-      })
+      });
     } else if (hits.length < 4) {
       setBkPoint({
         ...breakPointObj,
         default: 3,
         3000: 3,
         2000: 3,
-      })
+      });
     } else if (hits.length < 5) {
       setBkPoint({
         ...breakPointObj,
         3000: 4,
         2000: 4,
-      })
+      });
     } else if (hits.length > 5 && !isEqual(bkPoint, breakPointObj)) {
       setBkPoint(breakPointObj);
     }
@@ -65,8 +65,7 @@ const Hits = ({ hits, hasMore, refineNext }) => {
   return (
     <Masonry className="flex" breakpointCols={bkPoint}>
       {hits.map((hit) => (
-        <div className="w-max m-4" key={hit.id}>
-
+        <div className="w-max m-4 imgCard" key={hit.id}>
           <div className="relative shadow-xl hover:scale-105 duration-500 skew-y-3 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
             <div className="absolute p-2 flex items-end overflow-scroll h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40">
               {hit.labels.map((label) => (
