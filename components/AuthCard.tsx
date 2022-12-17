@@ -38,7 +38,7 @@ const AuthCard = (props: Props) => {
           Signup/Login to get access to exciting features like uploading{" "}
           <b className="text-teal-400">your own looks</b> to our system!
         </p>
-        <div className="w-full space-y-10">
+        <div className="w-full space-y-5">
           <button
             type="button"
             onClick={() => loginWithGithub()}
@@ -49,7 +49,7 @@ const AuthCard = (props: Props) => {
               Login with Github
             </div>
           </button>
-
+          <p className="font-silk text-center">--- OR ---</p>
           <button
             type="button"
             onClick={() => loginWithGoogle()}
