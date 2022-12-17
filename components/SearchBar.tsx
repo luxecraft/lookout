@@ -8,16 +8,19 @@ const Searcher = ({ currentRefinement, refine }) => {
   const [labels, setLabels] = useState<string[]>([]);
   const [latestLabelHighlighted, setLatestLabelHighlighted] = useState(false);
 
+  const [searchBarText, setSearchBarText] = useState("");
+
   useEffect(() => {
     const listener = (e) => {
-      if (e.key === "Tab" && query !== "") {
-        setLabels([...labels, query]);
-        setQuery("");
+      if ((e.key === "Tab" || e.keyCode === 32) && searchBarText !== "") {
+        setLabels([...labels, searchBarText]);
+        setSearchBarText("");
       }
 
-      if (e.key === "Backspace" && query === "") {
+      if (e.key === "Backspace" && searchBarText === "") {
         if (latestLabelHighlighted) {
           setLabels(labels.slice(0, -1));
+          setQuery(query.split(" ").slice(0, -1).join(" "));
           setLatestLabelHighlighted(false);
         } else {
           setLatestLabelHighlighted(true);
@@ -31,55 +34,65 @@ const Searcher = ({ currentRefinement, refine }) => {
     return () => {
       inputRef.current?.removeEventListener("keydown", listener);
     };
-  }, [query, labels, latestLabelHighlighted]);
+  }, [searchBarText, labels, latestLabelHighlighted]);
+
+  useEffect(() => {
+    if (labels.length === 0) {
+      setQuery(searchBarText.trim());
+    } else {
+      setQuery((labels.join(" ") + " " + searchBarText).trim());
+    }
+  }, [searchBarText, refine]);
+
+  useEffect(() => {
+    console.log('"', query, '"');
+  }, [query]);
 
   useEffect(() => {
     refine(query);
   }, [query]);
 
   return (
-    <div className="fixed w-full bottom-10">
-      <div className="relative flex py-2 dark:text-white text-black overflow-scroll items-center justify-start px-4 w-1/2 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silkRegular border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
-        <MagnifyingGlass
-          className="mr-2 text-black dark:text-white"
-          size={20}
-          weight="bold"
-        />
-        <div className="flex gap-2">
-          {labels.map((label, i) => {
-            return (
-              <div
-                key={i}
-                className={`px-2 flex items-center rounded-md dark:bg-black/30 bg-white/30
+    <div className="relative flex  py-2 dark:text-white text-black overflow-scroll items-center justify-start px-4 w-1/2 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
+      <MagnifyingGlass
+        className="mr-2 text-black dark:text-white"
+        size={20}
+        weight="bold"
+      />
+      <div className="flex gap-2">
+        {labels.map((label, i) => {
+          return (
+            <div
+              key={i}
+              className={`px-2 flex items-center rounded-md dark:bg-black/30 bg-white/30
                 ${
                   latestLabelHighlighted &&
                   i === labels.length - 1 &&
                   "bg-white/60 dark:bg-black/60"
                 }
                 `}
-              >
-                <BookmarkSimple
-                  className="mr-1 text-black dark:text-white"
-                  size={16}
-                  weight="fill"
-                />
+            >
+              <BookmarkSimple
+                className="mr-1 text-black dark:text-white"
+                size={16}
+                weight="fill"
+              />
 
-                {label}
-              </div>
-            );
-          })}
-        </div>
-        <input
-          ref={inputRef}
-          className={`bg-transparent px-2 flex-1 focus:outline-none
-          ${latestLabelHighlighted && " caret-transparent"}`}
-          type="search"
-          value={query}
-          onChange={(event) => {
-            setQuery(event.currentTarget.value);
-          }}
-        />
+              {label}
+            </div>
+          );
+        })}
       </div>
+      <input
+        ref={inputRef}
+        className={`bg-transparent px-2 flex-1 focus:outline-none
+          ${latestLabelHighlighted && " caret-transparent"}`}
+        type="search"
+        value={searchBarText}
+        onChange={(event) => {
+          setSearchBarText(event.currentTarget.value);
+        }}
+      />
     </div>
   );
 };

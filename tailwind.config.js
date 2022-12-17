@@ -43,8 +43,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        silkRegular: ["Silkscreen-Regular", ...defaultTheme.fontFamily.sans],
-        silkBold: ["Silkscreen-Bold", ...defaultTheme.fontFamily.sans],
+        silk: ["Silkscreen-Regular", ...defaultTheme.fontFamily.sans],
       },
       textShadow: {
         sm: "0 1px 2px var(--tw-shadow-color)",
