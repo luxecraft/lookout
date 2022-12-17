@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Masonry from "react-masonry-css";
 import { isEqual } from 'lodash';
 // import Image from 'next/image';
-import { connectHits } from "react-instantsearch-dom";
+import { connectInfiniteHits } from "react-instantsearch-dom";
 
 const breakPointObj = {
   default: 4,
@@ -13,8 +13,28 @@ const breakPointObj = {
   570: 1,
 };
 
-const Hits = ({ hits }) => {
+const Hits = ({ hits, hasMore, refineNext }) => {
   const [bkPoint, setBkPoint] = useState(breakPointObj);
+  const sentinelRef = useRef(null);
+
+  useEffect(() => {
+    if (sentinelRef.current !== null) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && hasMore) {
+            refineNext();
+          }
+        });
+      });
+
+      observer.observe(sentinelRef.current);
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, [hasMore, refineNext]);
+
   useEffect(() => {
     if (hits.length < 3) {
       setBkPoint({
@@ -56,8 +76,9 @@ const Hits = ({ hits }) => {
           </div>
         </div>
       ))}
+      <li className="ais-InfiniteHits-sentinel" ref={sentinelRef} aria-hidden="true" />
     </Masonry>
   );
 }
-const HitList = connectHits(Hits);
+const HitList = connectInfiniteHits(Hits);
 export default HitList;
