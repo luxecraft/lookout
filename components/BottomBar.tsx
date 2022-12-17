@@ -1,5 +1,6 @@
 import React from "react";
 import ProfileTab from "./ProfileTab";
+import ScrollUpBtn from "./ScrollUpBtn";
 import SearchBar from "./SearchBar";
 
 type Props = {};
@@ -7,7 +8,7 @@ type Props = {};
 const BottomBar = (props: Props) => {
   return (
     <div className="fixed w-full bottom-10 flex items-end">
-      <div className="w-1/4" />
+      <ScrollUpBtn />
       <SearchBar />
       <ProfileTab />
     </div>

@@ -8,6 +8,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -92,14 +93,15 @@ a {
 
 .profilebar {
   animation: fadein 0.5s ease;
-}
-
-.profilebarout {
-  animation: fadeout 0.5s ease;
+  animation: moveUp 0.2s ease;
 }
 
 .imgCard {
   animation: fadein 0.8s ease;
+}
+
+.scrollUpBtn {
+  animation: fadein 0.5s ease;
 }
 
 @keyframes fadein {
@@ -111,11 +113,11 @@ a {
   }
 }
 
-@keyframes fadeout {
+@keyframes moveUp {
   from {
-    opacity: 1;
+    transform: translateY(50px);
   }
   to {
-    opacity: 0;
+    transform: translateY(0);
   }
 }
