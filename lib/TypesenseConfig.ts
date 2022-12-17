@@ -12,9 +12,9 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
     ],
   },
   additionalSearchParameters: {
-    query_by: "text",
-    drop_tokens_threshold: 0,
-    typo_tokens_threshold: 0,
+    query_by: "labels, text, source",
+    query_by_weights: "2, 1, 1",
+    drop_tokens_threshold: 10000,
     use_cache: true,
     facet_by: "labels, nfsw, safeSearch, source",
     per_page: 30,
