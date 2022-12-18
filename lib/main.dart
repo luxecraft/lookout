@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lookout/app/screen/home.screen.dart';
+import 'package:lookout/app/screen/login.screen.dart';
+import 'package:lookout/app/wrapper/authentication.wrapper.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+final supabase = Supabase.instance.client;
+final navigationKey = GlobalKey<NavigatorState>();
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
+  await Supabase.initialize(
+    url: dotenv.maybeGet('SUPABASE_URL')!,
+    anonKey: dotenv.maybeGet('SUPABASE_ANON_KEY')!,
+  );
   runApp(const MyApp());
 }
 
@@ -9,33 +23,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: AuthenticationWrapper(),
-    );
-  }
-}
-
-class AuthenticationWrapper extends StatefulWidget {
-  const AuthenticationWrapper({super.key});
-
-  @override
-  State<AuthenticationWrapper> createState() => _AuthenticationWrapperState();
-}
-
-class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  Future<void> authChanges() async {}
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('This is a Wrapper'),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      navigatorKey: navigationKey,
+      initialRoute: '/',
+      routes: {
+        '/': (_) => const AuthenticationWrapper(),
+        '/login': (_) => const LoginScreen(),
+        '/home': (_) => const HomeScreen(),
+      },
     );
   }
 }
