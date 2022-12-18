@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SearchBox, connectSearchBox } from "react-instantsearch-dom";
 import { BookmarkSimple, Cube, MagnifyingGlass } from "phosphor-react";
+import Stats from "./Stats";
 const Searcher = ({ currentRefinement, refine }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 

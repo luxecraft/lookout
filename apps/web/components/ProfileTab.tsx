@@ -27,7 +27,6 @@ const ProfileTab = (props: Props) => {
     setIsHovering(false);
   };
 
-  console.log(router.pathname);
   useEffect(() => {
     const user = getUser();
     user.then((res) => {

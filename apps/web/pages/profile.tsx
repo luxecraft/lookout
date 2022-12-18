@@ -10,6 +10,7 @@ import ProfileDetails from "../components/ProfileDetails";
 import ProfileTab from "../components/ProfileTab";
 import SourceLogo from "../lib/SourceLogo";
 import supabase from "../lib/SupabaseClientConfig";
+import axios from "axios";
 
 type Props = {};
 
@@ -29,36 +30,11 @@ const ProfilePage = (props: Props) => {
   const [bkPoint, setBkPoint] = useState(breakPointObj);
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [userPosts, setUserPosts] = useState([
-    {
-      id: "",
-      title: "Post",
-      labels: ["charm", "blue", "sky"],
-      nfsw: false,
-      safeSearch: false,
-      source: "instagram",
-      post_url: "https://www.pinterest.com/pin/90001692528045806/",
-      image_url: "/images/images_0/images_00/images_000.jpeg",
-    },
-  ]);
+  const [userPosts, setUserPosts] = useState<any>([]);
 
   useEffect(() => {
-    for (let i = 0; i < 10; i++) {
-      setUserPosts((prev) => [
-        ...prev,
-        {
-          id: "",
-          title: "Post",
-          labels: ["charm", "blue", "sky"],
-          nfsw: false,
-          safeSearch: false,
-          source: "instagram",
-          post_url: "https://www.pinterest.com/pin/90001692528045806/",
-          image_url: `/images/images_0/images_00/images_00${i}.jpeg`,
-        },
-      ]);
-    }
-  }, []);
+    updatePosts();
+  }, [user]);
 
   const getUser = async () => {
     return await supabase.auth.getUser();
@@ -69,13 +45,30 @@ const ProfilePage = (props: Props) => {
       if (res) {
         if (res.data.user != null) {
           setUser(res.data.user);
-          console.log(res.data.user);
           return;
         }
       }
       router.push("/");
     });
   }, [router]);
+
+  useEffect(() => {
+    console.log(userPosts);
+  }, [userPosts]);
+
+  const updatePosts = async () => {
+    //Get all images of user with user id
+    const res = await axios.post("/api/getPhotos", { userId: user?.id });
+
+    if (res.data) {
+      if (Array.isArray(res.data)) {
+        setUserPosts(res.data);
+        console.log(res.data);
+      } else {
+        console.log(typeof res.data.data);
+      }
+    }
+  };
 
   return (
     <div>
@@ -91,10 +84,10 @@ const ProfilePage = (props: Props) => {
         <BlurryCircle />
         <ProfileTab />
         <ProfileDetails user={user} />
-        <AddPictureBtn />
+        <AddPictureBtn user={user} updatePosts={updatePosts} />
         <Masonry className="flex my-10" breakpointCols={bkPoint}>
-          {userPosts.map((hit) => (
-            <div className="w-max m-4 imgCard" key={hit.id}>
+          {userPosts.map((hit, i) => (
+            <div className="w-max m-4 imgCard" key={i}>
               <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
                 <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40">
                   <div className="px-4 drop-shadow-lg">
