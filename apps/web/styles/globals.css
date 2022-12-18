@@ -147,3 +147,18 @@ a {
   height: 34px;
   width: 34px;
 }
+
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+.custom-file-input::before {
+  content: "Upload Image";
+  display: inline-block;
+  cursor: pointer;
+}
+.custom-file-input::after {
+  content: "";
+  display: inline-block;
+  cursor: pointer;
+}
