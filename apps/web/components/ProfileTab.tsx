@@ -37,7 +37,7 @@ const ProfileTab = (props: Props) => {
           ) : (
             <ul className="space-y-4 py-2 flex flex-col items-center divide-dotted divide-black/40 dark:divide-white/40">
               <Link
-                href="/login"
+                href="/profile"
                 className="text-teal-600 dark:text-teal-400 flex items-center gap-2"
               >
                 <UserFocus
