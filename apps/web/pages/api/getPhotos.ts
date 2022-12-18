@@ -9,13 +9,13 @@ export default async function handler(
   const { userId } = req.body;
 
   const { data, error } = await supabase
-    .from("images")
+    .from("master")
     .select("*")
     .eq("user_id", userId);
 
   if (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 
-  res.status(200).json(data);
+  return res.status(200).json(data);
 }
