@@ -10,7 +10,6 @@ const BottomBar = (props: Props) => {
     <div className="fixed w-full bottom-10 flex items-end">
       <ScrollUpBtn />
       <SearchBar />
-      <ProfileTab />
     </div>
   );
 };

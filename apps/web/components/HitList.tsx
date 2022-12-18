@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Masonry from "react-masonry-css";
 import { isEqual } from "lodash";
-// import Image from 'next/image';
 import { connectInfiniteHits } from "react-instantsearch-dom";
 import SourceLogo from "../lib/SourceLogo";
 
@@ -10,9 +9,10 @@ const breakPointObj = {
   default: 4,
   3000: 6,
   2000: 5,
-  1200: 3,
-  1000: 2,
-  570: 1,
+  1536: 4,
+  1280: 3,
+  1024: 3,
+  640: 2,
 };
 
 const Hits = ({ hits, hasMore, refineNext }) => {
@@ -44,7 +44,9 @@ const Hits = ({ hits, hasMore, refineNext }) => {
         default: 2,
         3000: 2,
         2000: 2,
-        1200: 2,
+        1536: 2,
+        1280: 2,
+        1024: 2,
       });
     } else if (hits.length < 4) {
       setBkPoint({
@@ -52,6 +54,7 @@ const Hits = ({ hits, hasMore, refineNext }) => {
         default: 3,
         3000: 3,
         2000: 3,
+        1536: 3,
       });
     } else if (hits.length < 5) {
       setBkPoint({
@@ -89,18 +92,15 @@ const Hits = ({ hits, hasMore, refineNext }) => {
             <img
               src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
               alt={hit.title}
-              className="w-full max-w-[250px] rounded-lg"
+              className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-lg"
             />
           </div>
         </div>
       ))}
-      <li
-        className="ais-InfiniteHits-sentinel"
-        ref={sentinelRef}
-        aria-hidden="true"
-      />
+      <li className="ais-InfiniteHits-sentinel" ref={sentinelRef} aria-hidden="true" />
     </Masonry>
   );
 };
+
 const HitList = connectInfiniteHits(Hits);
 export default HitList;
