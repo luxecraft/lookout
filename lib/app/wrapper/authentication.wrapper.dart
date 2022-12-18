@@ -1,25 +1,35 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:lookout/main.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lookout/app/globalproviders.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-class AuthenticationWrapper extends StatefulWidget {
+class AuthenticationWrapper extends ConsumerStatefulWidget {
   const AuthenticationWrapper({super.key});
 
   @override
-  State<AuthenticationWrapper> createState() => _AuthenticationWrapperState();
+  ConsumerState<AuthenticationWrapper> createState() =>
+      _AuthenticationWrapperState();
 }
 
-class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
+class _AuthenticationWrapperState extends ConsumerState<AuthenticationWrapper> {
   StreamSubscription<AuthState>? _authenticationSubscription;
 
   @override
   void initState() {
     super.initState();
     _authWrapper();
-    _authenticationSubscription ??=
-        supabase.auth.onAuthStateChange.listen(_authChange);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _authenticationSubscription ??= ref
+        .read(supabaseClientProvider)
+        .auth
+        .onAuthStateChange
+        .listen(_authChange);
   }
 
   void _authWrapper() async {
@@ -27,7 +37,7 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     if (!mounted) {
       return;
     }
-    final session = supabase.auth.currentSession;
+    final session = ref.read(supabaseClientProvider).auth.currentSession;
     if (session == null) {
       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
     } else {
@@ -39,15 +49,21 @@ class _AuthenticationWrapperState extends State<AuthenticationWrapper> {
     final event = authState.event;
     switch (event) {
       case AuthChangeEvent.signedIn:
-        navigationKey.currentState!
+        ref
+            .read(navigationKeyProvider)
+            .currentState!
             .pushNamedAndRemoveUntil('/home', (route) => false);
         break;
       case AuthChangeEvent.signedOut:
-        navigationKey.currentState!
+        ref
+            .read(navigationKeyProvider)
+            .currentState!
             .pushNamedAndRemoveUntil('/login', (route) => false);
         break;
       case AuthChangeEvent.userDeleted:
-        navigationKey.currentState!
+        ref
+            .read(navigationKeyProvider)
+            .currentState!
             .pushNamedAndRemoveUntil('/login', (route) => false);
         break;
       default:
