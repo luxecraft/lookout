@@ -9,12 +9,13 @@ const SourceLogo = (props: Props) => {
   const { source } = props;
 
   if (source == "instagram")
-    return <InstagramLogo size={24} color="#fcf8f8" weight="fill" />;
+    return <img className="social-logo" src="/vectors/instagram.svg" />;
   else if (source == "pinterest")
-    return <PinterestLogo size={24} color="#fcf8f8" weight="fill" />;
+    return <img className="social-logo" src="/vectors/pinterest.svg" />;
   else if (source.includes("reddit"))
-    return <RedditLogo size={24} color="#fcf8f8" weight="fill" />;
-  else return null;
+    return <img className="social-logo" src="/vectors/reddit.svg" />;
+  else
+    return <img className="rounded-full" height={34} width={34} src={source} />;
 };
 
 export default SourceLogo;
