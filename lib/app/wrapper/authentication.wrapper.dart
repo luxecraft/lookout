@@ -49,21 +49,15 @@ class _AuthenticationWrapperState extends ConsumerState<AuthenticationWrapper> {
     final event = authState.event;
     switch (event) {
       case AuthChangeEvent.signedIn:
-        ref
-            .read(navigationKeyProvider)
-            .currentState!
+        navigationKeyProvider.currentState!
             .pushNamedAndRemoveUntil('/home', (route) => false);
         break;
       case AuthChangeEvent.signedOut:
-        ref
-            .read(navigationKeyProvider)
-            .currentState!
+        navigationKeyProvider.currentState!
             .pushNamedAndRemoveUntil('/login', (route) => false);
         break;
       case AuthChangeEvent.userDeleted:
-        ref
-            .read(navigationKeyProvider)
-            .currentState!
+        navigationKeyProvider.currentState!
             .pushNamedAndRemoveUntil('/login', (route) => false);
         break;
       default:

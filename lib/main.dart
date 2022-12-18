@@ -23,7 +23,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      navigatorKey: ref.read(navigationKeyProvider),
+      navigatorKey: navigationKeyProvider,
       theme: ThemeData.dark().copyWith(
           appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
           textTheme:
@@ -32,7 +32,7 @@ class MyApp extends ConsumerWidget {
       routes: {
         '/': (_) => const AuthenticationWrapper(),
         '/login': (_) => const LoginScreen(),
-        '/home': (_) => HomeScreen(),
+        '/home': (_) => const HomeScreen(),
       },
     );
   }
