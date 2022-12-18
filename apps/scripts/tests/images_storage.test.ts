@@ -25,18 +25,6 @@ test("check if images_i dir exisit in bucket", async () => {
     }
 });
 
-test("check if image_sha1_i dir exisit in bucket", async () => {
-    const { data, error } = await supabase.storage
-        .from(SUPABASE_BUCKET)
-        .list("image_sha1");
-    expect(error).toBeNull();
-    expect(data).not.toBeNull();
-    const names = data.map((item) => item.name);
-    for (let i = 0; i < TOTAL / BATCH_SIZE; i++) {
-        expect(names).toContain(`image_sha1_${i}`);
-    }
-});
-
 test("check if images_ij dir exisit in bucket", async () => {
     for (let i = 0; i < TOTAL / BATCH_SIZE; i++) {
         const { data, error } = await supabase.storage
@@ -47,20 +35,6 @@ test("check if images_ij dir exisit in bucket", async () => {
         const names = data.map((item) => item.name);
         for (let j = 0; j < BATCH_SIZE / MICRO_BATCH_SIZE; j++) {
             expect(names).toContain(`images_${i}${j}`);
-        }
-    }
-});
-
-test("check if image_sha1_ij.json dir exisit in bucket", async () => {
-    for (let i = 0; i < TOTAL / BATCH_SIZE; i++) {
-        const { data, error } = await supabase.storage
-            .from(SUPABASE_BUCKET)
-            .list(`image_sha1/image_sha1_${i}`);
-        expect(error).toBeNull();
-        expect(data).not.toBeNull();
-        const names = data.map((item) => item.name);
-        for (let j = 0; j < BATCH_SIZE / MICRO_BATCH_SIZE; j++) {
-            expect(names).toContain(`image_sha1_${i}${j}.json`);
         }
     }
 });

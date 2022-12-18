@@ -92,7 +92,7 @@ async function main() {
     const argv = yargs(hideBin(process.argv)).argv;
 
     if (argv["type"] === "init") {
-        console.log("Starting generateShFile");
+        console.log("Starting init");
         init();
     } else if (argv["type"] === "getImageSHA1") {
         console.log("Starting getImageSHA1", argv["i"]);

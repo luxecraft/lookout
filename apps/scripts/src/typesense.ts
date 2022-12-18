@@ -6,6 +6,7 @@ import {
     MICRO_BATCH_SIZE,
     PARSED_BASE_PATH,
     TYPESENSE_API_KEY,
+    TYPESENSE_INDEX_NAME,
     TYPESENSE_URL,
 } from "./config";
 import { Client } from "typesense";
@@ -100,94 +101,91 @@ export async function indexParsedIntoTypesense(i: number) {
                 )
                 .toString()
         );
-        await typesense.collections("images").documents().import(parsed, {
-            action: "upsert",
-        });
+        await typesense
+            .collections(TYPESENSE_INDEX_NAME)
+            .documents()
+            .import(parsed, {
+                action: "upsert",
+            });
         console.log(`Indexed parsed_${i}/parsed_${i}${j}.json`);
     }
 }
 
 export async function createCollection() {
     const schema: CollectionCreateSchema = {
-        name: "images",
+        name: TYPESENSE_INDEX_NAME,
         fields: [
             {
                 name: "id",
                 type: "string",
-                optional: false,
             },
             {
                 name: "sub",
                 type: "string",
-                optional: false,
             },
             {
                 name: "width",
                 type: "int32",
-                optional: false,
+                optional: true,
             },
             {
                 name: "height",
                 type: "int32",
-                optional: false,
+                optional: true,
             },
             {
                 name: "source",
                 type: "string",
-                optional: false,
             },
             {
                 name: "nfsw",
                 type: "bool",
-                optional: false,
             },
             {
                 name: "labels",
                 type: "string[]",
-                optional: false,
             },
             {
                 name: "text",
                 type: "string[]",
-                optional: false,
             },
             {
                 name: "safe_search",
                 type: "string[]",
-                optional: false,
             },
             {
                 name: "post_url",
                 type: "string",
-                optional: false,
+                optional: true,
             },
             {
                 name: "title",
                 type: "string",
-                optional: false,
+                optional: true,
             },
             {
                 name: "colors",
                 type: "string[]",
-                optional: false,
             },
             {
                 name: "image_url",
                 type: "string",
-                optional: false,
+            },
+            {
+                name: "user_id",
+                type: "string",
+                optional: true,
             },
         ],
         token_separators: ["\n", "-", "_", " "],
     };
     try {
-        await typesense.collections("images").retrieve();
-        console.log("Collection images already exists");
-        // await typesense.collections("images").delete();
-        // await typesense.collections().create(schema);
+        await typesense.collections(TYPESENSE_INDEX_NAME).retrieve();
+        console.log(`Collection ${TYPESENSE_INDEX_NAME} already exists`);
     } catch (err) {
         if (err.httpStatus === 404) {
             await typesense.collections().create(schema);
-            console.log("Collection images created");
+            console.log(`Collection ${TYPESENSE_INDEX_NAME} created`);
         }
     }
 }
