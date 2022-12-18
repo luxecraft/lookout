@@ -68,9 +68,9 @@ const Hits = ({ hits, hasMore, refineNext }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hits]);
   return (
-    <Masonry className="flex" breakpointCols={bkPoint}>
+    <Masonry className="flex duration-300 fadein" breakpointCols={bkPoint}>
       {hits.map((hit) => (
-        <div className="w-max m-4 imgCard" key={hit.id}>
+        <div className="w-max m-4 duration-300 imgCard" key={hit.id}>
           <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
             <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40">
               <div className="px-4 drop-shadow-lg">
