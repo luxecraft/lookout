@@ -12,7 +12,10 @@ const Searcher = ({ currentRefinement, refine }) => {
 
   useEffect(() => {
     const listener = (e) => {
-      if ((e.key === "Tab" || e.keyCode === 32) && searchBarText.trim() !== "") {
+      if (
+        (e.key === "Tab" || e.keyCode === 32) &&
+        searchBarText.trim() !== ""
+      ) {
         setLabels([...labels, searchBarText]);
         setSearchBarText("");
       }
