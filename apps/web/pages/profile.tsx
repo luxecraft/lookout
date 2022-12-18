@@ -11,6 +11,7 @@ import ProfileTab from "../components/ProfileTab";
 import SourceLogo from "../lib/SourceLogo";
 import supabase from "../lib/SupabaseClientConfig";
 import axios from "axios";
+import { isEqual } from "lodash";
 
 type Props = {};
 
@@ -35,6 +36,37 @@ const ProfilePage = (props: Props) => {
   useEffect(() => {
     updatePosts();
   }, [user]);
+
+  useEffect(() => {
+    if (userPosts.length < 3) {
+      setBkPoint({
+        ...breakPointObj,
+        default: 2,
+        3000: 2,
+        2000: 2,
+        1536: 2,
+        1280: 2,
+        1024: 2,
+      });
+    } else if (userPosts.length < 4) {
+      setBkPoint({
+        ...breakPointObj,
+        default: 3,
+        3000: 3,
+        2000: 3,
+        1536: 3,
+      });
+    } else if (userPosts.length < 5) {
+      setBkPoint({
+        ...breakPointObj,
+        3000: 4,
+        2000: 4,
+      });
+    } else if (userPosts.length > 5 && !isEqual(bkPoint, breakPointObj)) {
+      setBkPoint(breakPointObj);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userPosts]);
 
   const getUser = async () => {
     return await supabase.auth.getUser();
@@ -119,6 +151,13 @@ const ProfilePage = (props: Props) => {
             </div>
           ))}
         </Masonry>
+        {userPosts.length == 0 && (
+          <div className="font-silk">
+            <h1 className=" md:text-2xl text-center font-bold">
+              Add some images to get started
+            </h1>
+          </div>
+        )}
       </main>
     </div>
   );

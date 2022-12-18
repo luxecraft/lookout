@@ -1,14 +1,7 @@
 import { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {
-  GearSix,
-  HouseSimple,
-  IdentificationCard,
-  Power,
-  SignIn,
-  UserFocus,
-} from "phosphor-react";
+import { GearSix, HouseSimple, Power, SignIn, UserFocus } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import supabase from "../lib/SupabaseClientConfig";
 
@@ -37,7 +30,7 @@ const ProfileTab = (props: Props) => {
   }, []);
 
   return (
-    <div className="hidden md:flex w-1/4 max-h-fit flex-col justify-end gap-4 px-10">
+    <div className="flex w-1/4 max-h-fit flex-col justify-end gap-4 px-10">
       <div
         onClick={() => {
           setIsHovering(!isHovering);

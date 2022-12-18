@@ -56,6 +56,9 @@ module.exports = {
       letterSpacing: {
         "wide-wide": "0.2em",
       },
+      fontSize: {
+        xxs: "0.625rem",
+      },
     },
   },
   plugins: [

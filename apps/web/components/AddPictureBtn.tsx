@@ -39,15 +39,18 @@ const AddPictureBtn = (props: Props) => {
             const imgPath = "/images/users/" + uuid + "." + fileType;
 
             const { data, error } = await supabase.storage
-              .from("hari-dev")
+              .from("master")
               .upload(imgPath, file);
             console.log(data, error);
 
             const res = await axios.post("/api/uploadPhoto", {
+              uuid,
               imgPath,
               userImageUrl: user?.user_metadata.avatar_url,
               userId: user?.id,
             });
+
+            console.log(res);
 
             updatePosts();
             setLoading(false);
