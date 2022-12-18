@@ -68,7 +68,7 @@ const Hits = ({ hits, hasMore, refineNext }) => {
     <Masonry className="flex" breakpointCols={bkPoint}>
       {hits.map((hit) => (
         <div className="w-max m-4 imgCard" key={hit.id}>
-          <div className="relative shadow-xl hover:scale-105 duration-500 skew-y-3 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
+          <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
             <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40">
               <div className="px-4 drop-shadow-lg">
                 <a href={hit.post_url}>
