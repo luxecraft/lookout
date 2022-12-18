@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GithubLogo, GoogleLogo, UserCirclePlus } from "phosphor-react";
 import React from "react";
-import supabase from "../lib/SupabaseConfig";
+import supabase from "../lib/SupabaseClientConfig";
 
 type Props = {};
 
@@ -19,13 +19,13 @@ const AuthCard = (props: Props) => {
   };
 
   return (
-    <div className="relative w-1/3">
+    <div className="relative mx-4 md:w-1/3">
       <Link className="flex items-center justify-center" href="/">
         <div className="absolute flex items-end justify-center cursor-pointer -bottom-10 popcard hover:translate-y-2 duration-300 w-3/4 bg-white/10 popcard dark:bg-black/30 border-[0.05rem] border-gray-600  border-opacity-30 backdrop-blur-sm pt-20 pb-2 rounded-xl shadow-xl">
           <p className="text-center text-lg font-silk">Home</p>
         </div>
       </Link>
-      <div className="bg-white/10 popcard dark:bg-black/30 border-[0.05rem] border-gray-600  border-opacity-30 backdrop-blur-md p-16 rounded-xl shadow-xl">
+      <div className="bg-white/10 popcard dark:bg-black/30 border-[0.05rem] border-gray-600  border-opacity-30 backdrop-blur-md p-10 md:p-16 rounded-xl shadow-xl">
         <div className="flex items-center justify-center mb-5 gap-2">
           <UserCirclePlus
             size={38}
@@ -42,7 +42,7 @@ const AuthCard = (props: Props) => {
           <button
             type="button"
             onClick={() => loginWithGithub()}
-            className="font-silk w-full gradient-btn duration-300 text-white rounded-md p-2 shadow-lg"
+            className="font-silk w-full gradient-btn duration-300 text-white rounded-md px-1 py-3 md:p-2 shadow-lg"
           >
             <div className="flex items-center justify-center gap-4">
               <GithubLogo size={24} className="text-white" weight="fill" />
@@ -53,7 +53,7 @@ const AuthCard = (props: Props) => {
           <button
             type="button"
             onClick={() => loginWithGoogle()}
-            className="font-silk w-full gradient-btn duration-300 text-white rounded-md p-2 shadow-lg"
+            className="font-silk w-full gradient-btn duration-300 text-white rounded-md px-1 py-3 md:p-2 shadow-lg"
           >
             <div className="flex items-center justify-center gap-4">
               <GoogleLogo size={24} className="text-white" weight="fill" />
