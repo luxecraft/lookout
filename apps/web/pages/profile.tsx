@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js";
+import { AuthUser as User } from "@supabase/supabase-js";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -84,9 +84,6 @@ const ProfilePage = (props: Props) => {
     });
   }, [router]);
 
-  useEffect(() => {
-    console.log(userPosts);
-  }, [userPosts]);
 
   const updatePosts = async () => {
     //Get all images of user with user id

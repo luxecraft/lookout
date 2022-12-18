@@ -7,7 +7,7 @@ import SearchBar from "../components/SearchBar";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Head>
         <title>Lookout</title>
         <meta
@@ -22,6 +22,6 @@ export default function Home() {
         <HitList />
         <BottomBar />
       </main>
-    </div>
+    </>
   );
 }

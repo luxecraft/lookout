@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js";
+import { AuthUser as User } from "@supabase/supabase-js";
 import React, { FC } from "react";
 
 type Props = {

@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js";
+import { AuthUser as User } from "@supabase/supabase-js";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { GearSix, HouseSimple, Power, SignIn, UserFocus } from "phosphor-react";
@@ -48,9 +48,8 @@ const ProfileTab = (props: Props) => {
         {/* <p>Options</p> */}
       </div>
       <div
-        className={`h-30 ${
-          isHovering ? "block" : "hidden"
-        } profilebar py-2 ease w-fit dark:text-white text-black overflow-scroll items-center justify-start px-4 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl fixed right-10 top-20 z-40`}
+        className={`h-30 ${isHovering ? "block" : "hidden"
+          } profilebar py-2 ease w-fit dark:text-white text-black overflow-scroll items-center justify-start px-4 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl fixed right-10 top-20 z-40`}
       >
         <ul className="space-y-4 divide-y-2">
           {user == null ? (

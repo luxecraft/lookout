@@ -62,7 +62,7 @@ const Hits = ({ hits, hasMore, refineNext }) => {
         3000: 4,
         2000: 4,
       });
-    } else if (hits.length > 5 && !isEqual(bkPoint, breakPointObj)) {
+    } else if (hits.length >= 5 && !isEqual(bkPoint, breakPointObj)) {
       setBkPoint(breakPointObj);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
