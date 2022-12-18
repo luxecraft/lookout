@@ -81,7 +81,7 @@ const Hits = ({ hits, hasMore, refineNext }) => {
               <div className="flex overflow-scroll">
                 {hit.labels.map((label) => (
                   <div
-                    className="mx-2 whitespace-nowrap font-silk text-white bg-black/50 text-sm font-bold  rounded-md p-1"
+                    className="mx-2 whitespace-nowrap  font-silk text-white bg-black/50 text-xs md:text-sm font-bold  rounded-md p-1"
                     key={label.id}
                   >
                     {label}
@@ -97,7 +97,11 @@ const Hits = ({ hits, hasMore, refineNext }) => {
           </div>
         </div>
       ))}
-      <li className="ais-InfiniteHits-sentinel" ref={sentinelRef} aria-hidden="true" />
+      <li
+        className="ais-InfiniteHits-sentinel"
+        ref={sentinelRef}
+        aria-hidden="true"
+      />
     </Masonry>
   );
 };

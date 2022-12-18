@@ -7,9 +7,18 @@ type Props = {
 
 const ProfileDetails: FC<Props> = ({ user }) => {
   return (
-    <div>
-      <img src={user?.user_metadata.avatar_url} />
-      <p>{user?.user_metadata.full_name}</p>
+    <div className="bg-white/10 relative flex flex-col items-center font-silk dark:bg-black/30 border-[0.05rem] border-gray-600  border-opacity-30 backdrop-blur-md py-10 px-8 md:px-16 rounded-xl shadow-xl">
+      <img
+        className="absolute blur-lg translate-y-5 scale-75 rounded-md mb-10"
+        src={user?.user_metadata.avatar_url}
+      />
+      <img
+        className="rounded-md z-10 mb-10"
+        src={user?.user_metadata.avatar_url}
+      />
+
+      <p className="text-xl">{user?.user_metadata.full_name}</p>
+      <p className="text-sm text-gray-500">{user?.user_metadata.email}</p>
     </div>
   );
 };

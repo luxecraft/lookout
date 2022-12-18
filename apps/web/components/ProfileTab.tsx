@@ -1,14 +1,23 @@
 import { User } from "@supabase/supabase-js";
 import Link from "next/link";
-import { GearSix, IdentificationCard, Power, SignIn, UserFocus } from "phosphor-react";
+import { useRouter } from "next/router";
+import {
+  GearSix,
+  HouseSimple,
+  IdentificationCard,
+  Power,
+  SignIn,
+  UserFocus,
+} from "phosphor-react";
 import React, { useEffect, useState } from "react";
-import supabase from "../lib/SupabaseConfig";
+import supabase from "../lib/SupabaseClientConfig";
 
 type Props = {};
 
 const ProfileTab = (props: Props) => {
   const [isHovering, setIsHovering] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const router = useRouter();
   const getUser = async () => {
     return await supabase.auth.getUser();
   };
@@ -16,8 +25,9 @@ const ProfileTab = (props: Props) => {
     await supabase.auth.signOut();
     setUser(null);
     setIsHovering(false);
-  }
+  };
 
+  console.log(router.pathname);
   useEffect(() => {
     const user = getUser();
     user.then((res) => {
@@ -45,31 +55,52 @@ const ProfileTab = (props: Props) => {
         {/* <p>Options</p> */}
       </div>
       <div
-        className={`h-30 ${isHovering ? "block" : "hidden"} profilebar py-2 ease w-fit dark:text-white text-black overflow-scroll items-center justify-start px-4 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl fixed right-10 top-20 z-40`}
+        className={`h-30 ${
+          isHovering ? "block" : "hidden"
+        } profilebar py-2 ease w-fit dark:text-white text-black overflow-scroll items-center justify-start px-4 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl fixed right-10 top-20 z-40`}
       >
         <ul className="space-y-4 divide-y-2">
           {user == null ? (
-            <Link href="/login" className="dark:text-teal-400 text-teal-600 flex items-center gap-2">
+            <Link
+              href="/login"
+              className="dark:text-teal-400 text-teal-600 flex items-center gap-2"
+            >
               <div>
                 <SignIn size={24} weight="bold" />
               </div>
               Login
             </Link>
           ) : (
-            <ul className="space-y-4 py-2 flex flex-col items-center divide-dotted divide-black/40 dark:divide-white/40">
-              <Link
-                href="/profile"
-                className="text-teal-600 dark:text-teal-400 flex items-center gap-2"
-              >
-                <div>
-                  <UserFocus
-                    size={24}
-                    className="text-teal-600 dark:text-teal-400"
-                    weight="fill"
-                  />
-                </div>
-                Profile
-              </Link>
+            <ul className="space-y-4 py-2 flex flex-col items-between divide-dotted divide-black/40 dark:divide-white/40">
+              {router.pathname == "/profile" ? (
+                <Link
+                  href="/"
+                  className="text-teal-600 dark:text-teal-400 flex items-center gap-2"
+                >
+                  <div>
+                    <HouseSimple
+                      size={24}
+                      className="text-teal-600 dark:text-teal-400"
+                      weight="bold"
+                    />
+                  </div>
+                  Home
+                </Link>
+              ) : (
+                <Link
+                  href="/profile"
+                  className="text-teal-600 dark:text-teal-400 flex items-center justify-between gap-2"
+                >
+                  <div>
+                    <UserFocus
+                      size={24}
+                      className="text-teal-600 dark:text-teal-400"
+                      weight="fill"
+                    />
+                  </div>
+                  Profile
+                </Link>
+              )}
               <div
                 onClick={signout}
                 className="text-red-600 dark:text-red-400 flex items-center gap-2 cursor-pointer"
