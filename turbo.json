@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    }
+  },
+  "globalEnv": [
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_KEY",
+    "NEXT_PUBLIC_SUPABASE_BUCKET",
+    "NEXT_PUBLIC_GOOGLE_APPLICATION_CREDENTIALS",
+    "NEXT_PUBLIC_BLOB_URL",
+    "NEXT_PUBLIC_TYPESENSE_URL",
+    "NEXT_PUBLIC_TYPESENSE_API_KEY",
+    "NEXT_PUBLIC_INDEX_NAME"
+  ]
+}

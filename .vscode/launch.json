@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run scripts",
+      "program": "${workspaceFolder}/apps/scripts/src/run.ts",
+      "cwd": "${workspaceFolder}/apps/scripts",
+      "preLaunchTask": "yarn: build",
+      "sourceMaps": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "outFiles": ["${workspaceFolder}/out/**/*.js"],
+      "args": ["--type", "indexIntoTypesense", "--i", "0", "--j", "0"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest: scripts current file",
+      "cwd": "${workspaceFolder}/apps/scripts",
+      "args": [
+        "${fileBasename}",
+        "--config",
+        "${workspaceFolder}/apps/scripts/jest.config.js"
+      ],
+      "console": "integratedTerminal",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
