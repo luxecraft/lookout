@@ -12,7 +12,7 @@ const Searcher = ({ currentRefinement, refine }) => {
 
   useEffect(() => {
     const listener = (e) => {
-      if ((e.key === "Tab" || e.keyCode === 32) && searchBarText !== "") {
+      if ((e.key === "Tab" || e.keyCode === 32) && searchBarText.trim() !== "") {
         setLabels([...labels, searchBarText]);
         setSearchBarText("");
       }
@@ -67,10 +67,9 @@ const Searcher = ({ currentRefinement, refine }) => {
             <div
               key={i}
               className={`px-2 flex items-center rounded-md dark:bg-black/30 bg-white/30
-                ${
-                  latestLabelHighlighted &&
-                  i === labels.length - 1 &&
-                  "bg-white/60 dark:bg-black/60"
+                ${latestLabelHighlighted &&
+                i === labels.length - 1 &&
+                "bg-white/60 dark:bg-black/60"
                 }
                 `}
             >
