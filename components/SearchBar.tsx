@@ -53,9 +53,9 @@ const Searcher = ({ currentRefinement, refine }) => {
   }, [query]);
 
   return (
-    <div className="relative flex  py-2 dark:text-white text-black overflow-scroll items-center justify-start px-4 w-1/2 mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
+    <div className="relative flex py-2 dark:text-white text-black overflow-scroll items-center justify-start px-4 w-full md:w-1/2 mx-4 md:mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
       <MagnifyingGlass
-        className="mr-2 text-black dark:text-white"
+        className="mr-2 text-black dark:text-white hover:animate-pulse"
         size={20}
         weight="bold"
       />
@@ -85,13 +85,18 @@ const Searcher = ({ currentRefinement, refine }) => {
       </div>
       <input
         ref={inputRef}
-        className={`bg-transparent px-2 flex-1 focus:outline-none
+        className={`bg-transparent placeholder:text-black/0 md:placeholder:text-gray-600/60 md:dark:placeholder:text-gray-400/80 px-2 flex-1 focus:outline-none
           ${latestLabelHighlighted && " caret-transparent"}`}
         type="search"
         value={searchBarText}
         onChange={(event) => {
           setSearchBarText(event.currentTarget.value);
         }}
+        placeholder={
+          query == ""
+            ? "Search images, use Tab or Space to search for multiple tags"
+            : ""
+        }
       />
     </div>
   );

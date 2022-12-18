@@ -22,7 +22,7 @@ const ScrollUpBtn = (props: Props) => {
   }, []);
 
   return (
-    <div className="w-1/4">
+    <div className="w-1/4 hidden md:block">
       {showingScrollUpBtn && (
         <div
           onClick={() => {

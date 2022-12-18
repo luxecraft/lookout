@@ -551,9 +551,14 @@ video {
   margin-right: auto;
 }
 
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .mb-5 {
@@ -574,10 +579,6 @@ video {
 
 .mr-1 {
   margin-right: 0.25rem;
-}
-
-.mt-10 {
-  margin-top: 2.5rem;
 }
 
 .block {
@@ -642,6 +643,10 @@ video {
   width: 50%;
 }
 
+.w-20 {
+  width: 5rem;
+}
+
 .max-w-\[250px\] {
   max-width: 250px;
 }
@@ -662,12 +667,6 @@ video {
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-.select-none {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
 }
 
 .flex-col {
@@ -714,18 +713,6 @@ video {
   margin-bottom: calc(1rem * var(--tw-space-y-reverse));
 }
 
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
-
-.space-y-10 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(2.5rem * var(--tw-space-y-reverse));
-}
-
 .divide-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0;
   border-top-width: calc(2px * calc(1 - var(--tw-divide-y-reverse)));
@@ -734,14 +721,6 @@ video {
 
 .divide-dotted > :not([hidden]) ~ :not([hidden]) {
   border-style: dotted;
-}
-
-.divide-white\/10 > :not([hidden]) ~ :not([hidden]) {
-  border-color: rgb(255 255 255 / 0.1);
-}
-
-.divide-white\/40 > :not([hidden]) ~ :not([hidden]) {
-  border-color: rgb(255 255 255 / 0.4);
 }
 
 .divide-black\/40 > :not([hidden]) ~ :not([hidden]) {
@@ -903,11 +882,6 @@ video {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-}
-
-.py-4 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 .pt-20 {
@@ -1167,6 +1141,34 @@ a {
   }
 }
 
+.ais-InfiniteHits-sentinel {
+  opacity: 0;
+}
+
+.placeholder\:hidden::-moz-placeholder {
+  display: none;
+}
+
+.placeholder\:hidden::placeholder {
+  display: none;
+}
+
+.placeholder\:text-gray-600\/60::-moz-placeholder {
+  color: rgb(75 85 99 / 0.6);
+}
+
+.placeholder\:text-gray-600\/60::placeholder {
+  color: rgb(75 85 99 / 0.6);
+}
+
+.placeholder\:text-black\/0::-moz-placeholder {
+  color: rgb(0 0 0 / 0);
+}
+
+.placeholder\:text-black\/0::placeholder {
+  color: rgb(0 0 0 / 0);
+}
+
 .hover\:translate-y-2:hover {
   --tw-translate-y: 0.5rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -1181,6 +1183,16 @@ a {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.hover\:animate-pulse:hover {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 .hover\:bg-black\/40:hover {
@@ -1224,8 +1236,52 @@ a {
     color: rgb(248 113 113 / var(--tw-text-opacity));
   }
 
+  .dark\:placeholder\:text-gray-400\/80::-moz-placeholder {
+    color: rgb(156 163 175 / 0.8);
+  }
+
+  .dark\:placeholder\:text-gray-400\/80::placeholder {
+    color: rgb(156 163 175 / 0.8);
+  }
+
   .hover\:dark\:bg-white\/40:hover {
     background-color: rgb(255 255 255 / 0.4);
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .md\:block {
+    display: block;
+  }
+
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:w-1\/2 {
+    width: 50%;
+  }
+
+  .md\:placeholder\:text-gray-600\/60::-moz-placeholder {
+    color: rgb(75 85 99 / 0.6);
+  }
+
+  .md\:placeholder\:text-gray-600\/60::placeholder {
+    color: rgb(75 85 99 / 0.6);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .md\:dark\:placeholder\:text-gray-400\/80::-moz-placeholder {
+      color: rgb(156 163 175 / 0.8);
+    }
+    .md\:dark\:placeholder\:text-gray-400\/80::placeholder {
+      color: rgb(156 163 175 / 0.8);
+    }
   }
 }
 
@@ -1234,8 +1290,18 @@ a {
     width: 600px;
   }
 
+  .lg\:w-3\/4 {
+    width: 75%;
+  }
+
   .lg\:text-5xl {
     font-size: 3rem;
     line-height: 1;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:w-1\/2 {
+    width: 50%;
   }
 }

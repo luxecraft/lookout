@@ -121,3 +121,7 @@ a {
     transform: translateY(0);
   }
 }
+
+.ais-InfiniteHits-sentinel {
+  opacity: 0;
+}
