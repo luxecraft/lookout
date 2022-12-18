@@ -38,7 +38,7 @@ class SignInButton extends StatelessWidget {
                     style: Theme.of(context)
                         .textTheme
                         .subtitle1
-                        ?.apply(color: foregroundColor, fontWeightDelta: 2))),
+                        ?.apply(color: foregroundColor))),
           ],
         ),
       ),
