@@ -15,11 +15,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const uuid = uuidv4();
+  const { uuid, imgPath, userImageUrl, userId } = req.body;
 
-  const { imgPath, userImageUrl, userId } = req.body;
-
-  const { data, error } = await supabase.from("images").insert([
+  const { data, error } = await supabase.from("master").insert([
     {
       id: uuid,
       sub: imgPath,
@@ -35,8 +33,8 @@ export default async function handler(
   ]);
 
   if (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 
-  res.status(200);
+  return res.status(200).json(data);
 }
