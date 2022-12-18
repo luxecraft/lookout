@@ -9,8 +9,11 @@ class HomeScreenViewModel extends StateNotifier<HomeScreenModel> {
   }
 
   Future<void> fetchImages() async {
-    final response = await typesenseService
-        .searchImage({'q': state.query, 'query_by': 'labels'});
+    final response = await typesenseService.searchImage({
+      'q': state.query == '' ? '*' : state.query,
+      'query_by': 'labels, text, source',
+      'query_by_weight': '2, 1, 1'
+    });
     state = state.copyWith(
       images: response.hits,
     );
