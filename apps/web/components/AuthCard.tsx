@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GithubLogo, GoogleLogo, UserCirclePlus } from "phosphor-react";
 import React from "react";
-import supabase from "../lib/SupabaseConfig";
+import supabase from "../lib/SupabaseClientConfig";
 
 type Props = {};
 
