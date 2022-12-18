@@ -18,6 +18,7 @@ const ProfileTab = (props: Props) => {
     await supabase.auth.signOut();
     setUser(null);
     setIsHovering(false);
+    router.push("/");
   };
 
   useEffect(() => {
