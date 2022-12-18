@@ -74,7 +74,7 @@ export function parseVisionJSON(i: number, j: number) {
                 (label: any) => label.description
             ),
             text: data.textAnnotations.map((text: any) => text.description),
-            safeSearch,
+            safe_search: safeSearch,
             post_url: sha[k].metadata.post_url ?? "",
             title: sha[k].metadata.title ?? "",
             colors,
@@ -152,7 +152,7 @@ export async function createCollection() {
                 optional: false,
             },
             {
-                name: "safeSearch",
+                name: "safe_search",
                 type: "string[]",
                 optional: false,
             },

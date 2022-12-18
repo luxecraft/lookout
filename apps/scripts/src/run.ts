@@ -20,7 +20,8 @@ import {
 import fs from "fs";
 import { generateShFile } from "./generateShFile";
 import { parseAllImages } from "./googleVisionAI";
-import { indexParsedIntoTypesense, parseVisionJSON } from "./typesense";
+import { indexParsedIntoTypesense } from "./typesense";
+import { writeToDB } from "./database";
 
 function init() {
     if (!fs.existsSync(DATA_BASE_PATH)) {
@@ -123,6 +124,9 @@ async function main() {
     } else if (argv["type"] === "indexIntoTypesense") {
         console.log("Starting indexIntoTypesense", argv["i"]);
         await indexParsedIntoTypesense(argv["i"]);
+    } else if (argv["type"] === "writeToDB") {
+        console.log("Starting writeToDB", argv["i"]);
+        await writeToDB(argv["i"]);
     } else if (argv["type"] === "full") {
         console.log("Starting full");
         await downloadImagesFromSHA1(argv["i"], argv["j"]);

@@ -38,3 +38,5 @@ leftover.sh
 credentials.json
 
 .vscode
+**/.env
+**/**.out

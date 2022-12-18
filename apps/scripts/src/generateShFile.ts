@@ -41,8 +41,13 @@ export function generateShFile() {
     // }
     // sh += `wait\n\n`;
 
+    // for (let i = 0; i < TOTAL / BATCH_SIZE; i++) {
+    //     sh += `nohup npx ts-node src/run.ts --type indexIntoTypesense --i ${i} &\n`;
+    // }
+    // sh += `wait\n\n`;
+
     for (let i = 0; i < TOTAL / BATCH_SIZE; i++) {
-        sh += `nohup npx ts-node src/run.ts --type indexIntoTypesense --i ${i} &\n`;
+        sh += `nohup npx ts-node src/run.ts --type writeToDB --i ${i} &\n`;
     }
     sh += `wait\n\n`;
 
