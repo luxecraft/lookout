@@ -1,7 +1,13 @@
-import { BATCH_SIZE, MICRO_BATCH_SIZE, PARSED_BASE_PATH } from "./config";
+import {
+    BATCH_SIZE,
+    MICRO_BATCH_SIZE,
+    PARSED_BASE_PATH,
+    TABLE_NAME,
+} from "./config";
 import { supabase } from "./supabase";
 import { parseVisionJSON } from "./typesense";
 import fs from "fs";
+import retry from "async-retry";
 
 export async function writeToDB(i: number) {
     for (let j = 0; j < BATCH_SIZE / MICRO_BATCH_SIZE; j++) {
@@ -13,7 +19,12 @@ export async function writeToDB(i: number) {
                 )
                 .toString()
         );
-        const { error } = await supabase.from("hari_dev").upsert(parsed);
+        const { error } = await retry(
+            () => supabase.from(TABLE_NAME).upsert(parsed),
+            {
+                retries: 5,
+            }
+        );
         if (error) {
             console.log(error);
         }

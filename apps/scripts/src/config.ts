@@ -18,6 +18,7 @@ const BATCH_ANNOTATE_IMAGES = 5;
 const TYPESENSE_API_KEY = process.env.TYPESENSE_API_KEY;
 const TYPESENSE_URL = process.env.TYPESENSE_URL;
 const TYPESENSE_INDEX_NAME = process.env.TYPESENSE_INDEX_NAME;
+const TABLE_NAME = process.env.TABLE_NAME;
 
 export {
     MICRO_BATCH_SIZE,
@@ -37,6 +38,7 @@ export {
     TYPESENSE_API_KEY,
     TYPESENSE_URL,
     TYPESENSE_INDEX_NAME,
+    TABLE_NAME,
 };
 
 // https://blobcdn.same.energy/thumbnails/blobs/a/93/81/938154c52422807bfaf6fc9f0a7cfdbbaa382863.jpeg

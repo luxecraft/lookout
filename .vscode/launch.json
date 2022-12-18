@@ -40,7 +40,7 @@
             "console": "integratedTerminal",
             "program": "${workspaceFolder}/node_modules/.bin/jest",
             "internalConsoleOptions": "neverOpen",
-            "runtimeExecutable": "/home/hari/home/hari/.nvm/versions/node/v16.17.1/bin/node"
+            "runtimeExecutable": "/home/hari/.nvm/versions/node/v16.17.1/bin/node"
         }
     ]
 }
