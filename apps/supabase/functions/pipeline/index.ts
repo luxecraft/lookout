@@ -10,7 +10,7 @@ import type { Feature } from "https://googleapis.deno.dev/v1/vision:v1.ts";
 import { supabase } from "../supabase.ts";
 import { writeToTypesense } from "../typesense.ts";
 import retry from "https://esm.sh/async-retry@1.3.3";
-import { _noResolveJsonResponse } from "https://esm.sh/v99/@supabase/gotrue-js@2.6.0/dist/module/lib/fetch.d.ts";
+import { Buffer } from "https://deno.land/std@0.168.0/io/buffer.ts";
 
 const googleAuth = new GoogleAuth();
 
@@ -25,11 +25,14 @@ serve(async (req: any) => {
         const client = new Vision(auth);
         const full_url = `${BLOB_URL}${data.record.image_url}`;
 
+        const res = await fetch(full_url);
+        const blob = await res.blob();
+        const buffer = await blob.arrayBuffer();
+        const unit8arr = new Buffer(buffer).bytes();
+
         const request: AnnotateImageRequest = {
             image: {
-                source: {
-                    imageUri: full_url,
-                },
+                content: unit8arr,
             },
             features: [
                 {
@@ -47,20 +50,10 @@ serve(async (req: any) => {
             ] as Feature[],
         };
 
-        const response = await retry(
-            async () => {
-                const response = await client.imagesAnnotate({
-                    requests: [request],
-                });
-
-                if (response?.responses?.[0].error) {
-                    throw new Error(response?.responses?.[0].error.message);
-                }
-                return response;
-            },
-            {
-                retries: 3,
-            }
+        const response = await retries(
+            client.imagesAnnotate({
+                requests: [request],
+            })
         );
         console.log(response);
 
