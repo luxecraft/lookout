@@ -1,26 +1,39 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**"]
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", ".next/**"]
+        },
+        "lint": {
+            "outputs": []
+        },
+        "dev": {
+            "cache": false
+        }
     },
-    "lint": {
-      "outputs": []
-    },
-    "dev": {
-      "cache": false
-    }
-  },
-  "globalEnv": [
-    "NEXT_PUBLIC_SUPABASE_URL",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    "SUPABASE_SERVICE_KEY",
-    "NEXT_PUBLIC_SUPABASE_BUCKET",
-    "NEXT_PUBLIC_GOOGLE_APPLICATION_CREDENTIALS",
-    "NEXT_PUBLIC_BLOB_URL",
-    "NEXT_PUBLIC_TYPESENSE_URL",
-    "NEXT_PUBLIC_TYPESENSE_API_KEY",
-    "NEXT_PUBLIC_INDEX_NAME"
-  ]
+    "globalEnv": [
+        "NEXT_PUBLIC_SUPABASE_URL",
+        "NEXT_PUBLIC_SUPABASE_KEY",
+        "NEXT_PUBLIC_SUPABASE_BUCKET",
+        "NEXT_PUBLIC_GOOGLE_APPLICATION_CREDENTIALS",
+        "NEXT_PUBLIC_BLOB_URL",
+        "NEXT_PUBLIC_TYPESENSE_URL",
+        "NEXT_PUBLIC_TYPESENSE_API_KEY",
+        "NEXT_PUBLIC_INDEX_NAME",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+        "SUPABASE_SERVICE_KEY",
+        "SUPABASE_URL",
+        "SUPABASE_KEY",
+        "SUPABASE_BUCKET",
+        "GOOGLE_APPLICATION_CREDENTIALS",
+        "BLOB_URL",
+        "TYPESENSE_URL",
+        "TYPESENSE_API_KEY",
+        "TOTAL",
+        "BATCH_SIZE",
+        "MICRO_BATCH_SIZE",
+        "TYPESENSE_INDEX_NAME",
+        "TABLE_NAME"
+    ]
 }

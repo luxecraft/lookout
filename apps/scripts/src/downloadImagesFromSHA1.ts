@@ -14,7 +14,7 @@ export async function downloadImagesFromSHA1(i: number, j: number) {
             "utf-8"
         )
     );
-    for (let k = 0; k < imageUrls.length; k++) {
+    for (let k = 800; k < imageUrls.length; k++) {
         const url = `${BASE_BLOB_URL}/${imageUrls[k].prefix}/${imageUrls[
             k
         ].sha1.slice(0, 2)}/${imageUrls[k].sha1.slice(2, 4)}/${

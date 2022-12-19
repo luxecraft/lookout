@@ -5,4 +5,5 @@ module.exports = {
     verbose: true,
     testTimeout: 1000 * 60 * 2,
     slowTestThreshold: 1000 * 60 * 2,
+    testMatch: ["**/tests/**/*.test.ts"],
 };
