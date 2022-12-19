@@ -7,7 +7,7 @@ type Props = {
 const Onboarding = (props: Props) => {
   const { setHasOnboarded } = props;
   return (
-    <div className="text-black text-center md:w-2/5 dark:text-white font-silk onboarding-card">
+    <div className="text-black z-50 text-center md:w-2/5 dark:text-white font-silk onboarding-card">
       <h1 className="text-xl md:text-3xl xl:text-5xl">Lookout 👀</h1>
       <p className="text-gray-600 text-xs md:text-base mt-4">
         A new way to look at images
