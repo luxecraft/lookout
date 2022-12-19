@@ -71,10 +71,9 @@ const Searcher = ({ currentRefinement, refine }) => {
             <div
               key={i}
               className={`px-2 flex items-center rounded-md dark:bg-black/30 bg-white/30
-                ${
-                  latestLabelHighlighted &&
-                  i === labels.length - 1 &&
-                  "bg-white/60 dark:bg-black/60"
+                ${latestLabelHighlighted &&
+                i === labels.length - 1 &&
+                "bg-white/60 dark:bg-black/60"
                 }
                 `}
             >

@@ -18,7 +18,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <>
       <Head>
         <title>Lookout</title>
         <meta
@@ -43,6 +43,6 @@ export default function Home() {
           <Onboarding setHasOnboarded={setHasOnboarded} />
         )}
       </main>
-    </div>
+    </>
   );
 }

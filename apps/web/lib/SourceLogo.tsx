@@ -14,8 +14,7 @@ const SourceLogo = (props: Props) => {
     return <img className="social-logo" src="/vectors/pinterest.svg" />;
   else if (source.includes("reddit"))
     return <img className="social-logo" src="/vectors/reddit.svg" />;
-  else
-    return <img className="rounded-full" height={34} width={34} src={source} />;
+  else return <img className="social-logo rounded-md" src={source} />;
 };
 
 export default SourceLogo;
