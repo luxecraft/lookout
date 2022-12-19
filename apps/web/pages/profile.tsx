@@ -1,7 +1,7 @@
-import { User } from "@supabase/supabase-js";
+import { AuthUser as User } from "@supabase/supabase-js";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { createRef, useCallback, useEffect, useRef, useState } from "react";
 import Masonry from "react-masonry-css";
 import AddPictureBtn from "../components/AddPictureBtn";
 import AuthCard from "../components/AuthCard";
@@ -62,7 +62,7 @@ const ProfilePage = (props: Props) => {
         3000: 4,
         2000: 4,
       });
-    } else if (userPosts.length > 5 && !isEqual(bkPoint, breakPointObj)) {
+    } else if (userPosts.length >= 5 && !isEqual(bkPoint, breakPointObj)) {
       setBkPoint(breakPointObj);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,23 +84,48 @@ const ProfilePage = (props: Props) => {
     });
   }, [router]);
 
-  useEffect(() => {
-    console.log(userPosts);
-  }, [userPosts]);
 
   const updatePosts = async () => {
     //Get all images of user with user id
-    const res = await axios.post("/api/getPhotos", { userId: user?.id });
+    if (user?.id != undefined) {
+      const res = await axios.post("/api/getPhotos", { userId: user?.id });
 
-    if (res.data) {
-      if (Array.isArray(res.data)) {
-        setUserPosts(res.data);
-        console.log(res.data);
-      } else {
-        console.log(typeof res.data.data);
+      if (res.data) {
+        if (Array.isArray(res.data)) {
+          setUserPosts(res.data);
+        } else {
+          console.log(typeof res.data.data);
+        }
       }
     }
   };
+
+  const cardRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
+  cardRefs.current = userPosts.map((_, i) => cardRefs.current[i] = createRef());
+
+  const cardThreeDRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
+  cardThreeDRefs.current = userPosts.map((_, i) => cardThreeDRefs.current[i] = createRef());
+
+  const onTiltCard = useCallback((e: React.MouseEvent, index: number) => {
+    let w = cardRefs.current[index].current?.clientWidth;
+    let h = cardRefs.current[index].current?.clientHeight;
+    let b = cardRefs.current[index].current?.getBoundingClientRect();
+    let X = (e.clientX - b!.left) / w!;
+    let Y = (e.clientY - b!.top) / h!;
+
+    let rX = -(X - 0.5) * 26;
+    let rY = (Y - 0.5) * 26;
+
+    if (cardThreeDRefs.current[index].current) {
+      cardThreeDRefs.current[index].current!.style.transform = `rotateY(${rX}deg) rotateX(${rY}deg)`;
+    }
+  }, []);
+
+  const onUntiltCard = useCallback((e: React.MouseEvent, index: number) => {
+    if (cardThreeDRefs.current[index].current) {
+      cardThreeDRefs.current[index].current!.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    }
+  }, [])
 
   return (
     <div>
@@ -119,34 +144,42 @@ const ProfilePage = (props: Props) => {
         <AddPictureBtn user={user} updatePosts={updatePosts} />
         <Masonry className="flex my-10" breakpointCols={bkPoint}>
           {userPosts.map((hit, i) => (
-            <div className="w-max m-4 imgCard" key={i}>
-              <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
-                <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40">
-                  <div className="px-4 drop-shadow-lg">
-                    <a href={hit.post_url}>
-                      <SourceLogo
-                        source={
-                          user?.user_metadata.avatar_url ?? placeholderIcon
-                        }
-                      />
-                    </a>
-                  </div>
-                  <div className="flex overflow-scroll">
-                    {hit.labels.map((label, i) => (
-                      <div
-                        className="mx-2 whitespace-nowrap font-silk text-white bg-black/50 text-sm font-bold  rounded-md p-1"
-                        key={i}
-                      >
-                        {label}
+            <div className="w-max mx-4 my-8 imgCard" key={i}>
+              <div className="card">
+                <div className="card__wrapper">
+                  <div className="card__3d" ref={cardThreeDRefs.current[i]}>
+                    <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]" ref={cardRefs.current[i]} onMouseMove={(e) => onTiltCard(e, i)} onMouseLeave={(e) => onUntiltCard(e, i)}>
+                      <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40 z-10">
+                        <div className="px-4 drop-shadow-lg">
+                          <a href={hit.post_url}>
+                            <SourceLogo
+                              source={
+                                user?.user_metadata.avatar_url ?? placeholderIcon
+                              }
+                            />
+                          </a>
+                        </div>
+                        <div className="flex overflow-scroll">
+                          {hit.labels.map((label, i) => (
+                            <div
+                              className="mx-2 whitespace-nowrap font-silk text-white bg-black/50 text-sm font-bold  rounded-md p-1"
+                              key={i}
+                            >
+                              {label}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    ))}
+                      <div className="card__image">
+                        <img
+                          src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
+                          alt={hit.title}
+                          className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-lg"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <img
-                  src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
-                  alt={hit.title}
-                  className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-lg"
-                />
               </div>
             </div>
           ))}

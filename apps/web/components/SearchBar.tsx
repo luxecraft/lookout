@@ -57,7 +57,7 @@ const Searcher = ({ currentRefinement, refine }) => {
   }, [query]);
 
   return (
-    <div className="relative flex py-2 dark:text-white text-black overflow-scroll items-center justify-start px-4 w-full md:w-1/2 mx-4 md:mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
+    <div className="relative duration-300 fadein flex py-2 dark:text-white text-black overflow-scroll items-center justify-start px-4 w-full md:w-1/2 mx-4 md:mx-auto bg-white/30 dark:bg-black/30 shadow-lg font-silk border-[0.05rem] border-gray-200 border-opacity-30 backdrop-blur-md rounded-xl">
       <div>
         <MagnifyingGlass
           className="mr-2 text-black dark:text-white hover:animate-pulse"
@@ -71,10 +71,9 @@ const Searcher = ({ currentRefinement, refine }) => {
             <div
               key={i}
               className={`px-2 flex items-center rounded-md dark:bg-black/30 bg-white/30
-                ${
-                  latestLabelHighlighted &&
-                  i === labels.length - 1 &&
-                  "bg-white/60 dark:bg-black/60"
+                ${latestLabelHighlighted &&
+                i === labels.length - 1 &&
+                "bg-white/60 dark:bg-black/60"
                 }
                 `}
             >
