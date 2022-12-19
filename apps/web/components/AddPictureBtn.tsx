@@ -1,10 +1,11 @@
 import { AuthUser as User } from "@supabase/supabase-js";
 import { FilePlus, Plus } from "phosphor-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import supabase from "../lib/SupabaseClientConfig";
 import Spinner from "./Spinner";
+import { generateCaption } from "../lib/CaptionGenerator";
 
 type Props = {
   user: User | null;
@@ -14,6 +15,15 @@ type Props = {
 const AddPictureBtn = (props: Props) => {
   const { user, updatePosts } = props;
   const [loading, setLoading] = useState(false);
+
+  const [loadingText, setLoadingText] = useState("Please Wait");
+
+  useEffect(() => {
+    setInterval(() => {
+      setLoadingText(generateCaption());
+    }, 4000);
+  }, []);
+
   return (
     <div className="relative">
       <div
@@ -62,7 +72,10 @@ const AddPictureBtn = (props: Props) => {
         />
         <label htmlFor="files" className="cursor-pointer">
           {loading ? (
-            <Spinner />
+            <div className="flex items-center gap-4">
+              <Spinner />
+              <p className="fadein">{loadingText}</p>
+            </div>
           ) : (
             <div className="flex items-center gap-4">
               <FilePlus size={24} weight="fill" />
