@@ -92,10 +92,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                             child: TextField(
                                                 controller:
                                                     _textEditingController,
-                                                onChanged: ref
+                                                onSubmitted: ref
                                                     .read(_homeScreenProvider
                                                         .notifier)
                                                     .updateQuery,
+                                                // onChanged: ref
+                                                //     .read(_homeScreenProvider
+                                                //         .notifier)
+                                                //     .updateQuery,
                                                 decoration: InputDecoration(
                                                     border: InputBorder.none,
                                                     prefixIcon: const Icon(
