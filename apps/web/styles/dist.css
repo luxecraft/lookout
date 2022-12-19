@@ -633,6 +633,18 @@ video {
   margin-top: 2rem;
 }
 
+.-mt-10 {
+  margin-top: -2.5rem;
+}
+
+.-mt-4 {
+  margin-top: -1rem;
+}
+
+.-mt-5 {
+  margin-top: -1.25rem;
+}
+
 .block {
   display: block;
 }
@@ -663,6 +675,10 @@ video {
 
 .h-6 {
   height: 1.5rem;
+}
+
+.h-screen {
+  height: 100vh;
 }
 
 .max-h-fit {
@@ -1060,6 +1076,11 @@ video {
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .font-bold {
