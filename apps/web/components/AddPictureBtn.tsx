@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js";
+import { AuthUser as User } from "@supabase/supabase-js";
 import { FilePlus, Plus } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";

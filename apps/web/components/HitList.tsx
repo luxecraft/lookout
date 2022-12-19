@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState, createRef } from "react";
 import Masonry from "react-masonry-css";
 import { isEqual } from "lodash";
 import {
@@ -74,50 +74,83 @@ const Hits = ({ hits, hasMore, refineNext }) => {
         3000: 4,
         2000: 4,
       });
-    } else if (hits.length > 5 && !isEqual(bkPoint, breakPointObj)) {
+    } else if (hits.length >= 5 && !isEqual(bkPoint, breakPointObj)) {
       setBkPoint(breakPointObj);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hits]);
+
+  const cardRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
+  cardRefs.current = hits.map((_, i) => cardRefs.current[i] = createRef());
+
+  const cardThreeDRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
+  cardThreeDRefs.current = hits.map((_, i) => cardThreeDRefs.current[i] = createRef());
+
+  const onTiltCard = useCallback((e: React.MouseEvent, index: number) => {
+    let w = cardRefs.current[index].current?.clientWidth;
+    let h = cardRefs.current[index].current?.clientHeight;
+    let b = cardRefs.current[index].current?.getBoundingClientRect();
+    let X = (e.clientX - b!.left) / w!;
+    let Y = (e.clientY - b!.top) / h!;
+
+    let rX = -(X - 0.5) * 26;
+    let rY = (Y - 0.5) * 26;
+
+    if (cardThreeDRefs.current[index].current) {
+      cardThreeDRefs.current[index].current!.style.transform = `rotateY(${rX}deg) rotateX(${rY}deg)`;
+    }
+  }, []);
+
+  const onUntiltCard = useCallback((e: React.MouseEvent, index: number) => {
+    if (cardThreeDRefs.current[index].current) {
+      cardThreeDRefs.current[index].current!.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    }
+  }, [])
+
   return (
-    <>
-      <Masonry className="flex duration-300 fadein" breakpointCols={bkPoint}>
-        {hits.map((hit) => (
-          <div className="w-max m-4 duration-300 imgCard" key={hit.id}>
-            <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer w-auto overflow-hidden">
-              <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40">
-                <div className="px-4 drop-shadow-lg">
-                  <a href={hit.post_url}>
-                    <SourceLogo source={hit.source} />
-                  </a>
-                </div>
-                <div className="flex overflow-scroll">
-                  {hit.labels.map((label) => (
-                    <div
-                      className="mx-2 whitespace-nowrap  font-silk text-white bg-black/50 text-xs md:text-sm font-bold  rounded-md p-1"
-                      key={label.id}
-                    >
-                      {label}
+    <Masonry className="flex" breakpointCols={bkPoint}>
+      {hits.map((hit, index) => (
+        <div className="w-max mx-4 my-8 imgCard" key={hit.id}>
+          <div className="card">
+            <div className="card__wrapper">
+              <div className="card__3d" ref={cardThreeDRefs.current[index]}>
+                <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]" ref={cardRefs.current[index]} onMouseMove={(e) => onTiltCard(e, index)} onMouseLeave={(e) => onUntiltCard(e, index)}>
+                  <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/30  hover:bg-black/30 z-10">
+                    <div className="px-4 drop-shadow-lg">
+                      <a href={hit.post_url} target="_blank" rel="noreferrer noopener">
+                        <SourceLogo source={hit.source} />
+                      </a>
                     </div>
-                  ))}
+                    <div className="flex overflow-scroll">
+                      {hit.labels.map((label) => (
+                        <div
+                          className="mx-2 whitespace-nowrap  font-silk text-white bg-black/50 text-xs md:text-sm font-bold  rounded-md p-1"
+                          key={label.id}
+                        >
+                          {label}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="card__image">
+                    <img
+                      src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
+                      alt={hit.title}
+                      className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-lg"
+                    />
+                  </div>
                 </div>
               </div>
-              <img
-                src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
-                alt={hit.title}
-                className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-lg"
-              />
             </div>
           </div>
-        ))}
-        <li
-          className="ais-InfiniteHits-sentinel"
-          ref={sentinelRef}
-          aria-hidden="true"
-        />
-      </Masonry>
-      <LoadingIndicator />
-    </>
+        </div>
+      ))}
+      <li
+        className="ais-InfiniteHits-sentinel"
+        ref={sentinelRef}
+        aria-hidden="true"
+      />
+    </Masonry>
   );
 };
 

@@ -597,6 +597,11 @@ video {
   margin-right: auto;
 }
 
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -621,28 +626,16 @@ video {
   margin-top: 1rem;
 }
 
+.mt-8 {
+  margin-top: 2rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
 }
 
 .mr-1 {
   margin-right: 0.25rem;
-}
-
-.mt-8 {
-  margin-top: 2rem;
-}
-
-.-mt-10 {
-  margin-top: -2.5rem;
-}
-
-.-mt-4 {
-  margin-top: -1rem;
-}
-
-.-mt-5 {
-  margin-top: -1.25rem;
 }
 
 .mt-5 {
@@ -679,10 +672,6 @@ video {
 
 .h-6 {
   height: 1.5rem;
-}
-
-.h-screen {
-  height: 100vh;
 }
 
 .max-h-fit {
@@ -732,10 +721,6 @@ video {
   width: 1.5rem;
 }
 
-.w-1\/2 {
-  width: 50%;
-}
-
 .max-w-\[150px\] {
   max-width: 150px;
 }
@@ -757,6 +742,10 @@ video {
 .scale-75 {
   --tw-scale-x: .75;
   --tw-scale-y: .75;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -1104,11 +1093,6 @@ video {
   line-height: 2rem;
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .font-bold {
   font-weight: 700;
 }
@@ -1137,6 +1121,11 @@ video {
   color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
+}
+
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -1150,16 +1139,6 @@ video {
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
-}
-
-.text-gray-800 {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity));
-}
-
-.text-gray-400 {
-  --tw-text-opacity: 1;
-  color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
 .caret-transparent {
@@ -1247,8 +1226,8 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
+    Helvetica Neue, sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -1326,12 +1305,7 @@ a {
 }
 
 .gradient-btn {
-  background-image: linear-gradient(
-    to right,
-    #1e8b58 0%,
-    #25d8c0 51%,
-    #0f5540 100%
-  );
+  background-image: linear-gradient(to right, #1e8b58 0%, #25d8c0 51%, #0f5540 100%);
   transition: 0.4s;
   background-size: 200% auto;
 }
@@ -1425,6 +1399,31 @@ a {
   animation: popup 0.5s ease;
 }
 
+.card {
+  box-sizing: border-box;
+  position: relative;
+}
+
+.card__wrapper {
+  perspective: 500px;
+}
+
+.card__3d {
+  -webkit-clip-path: inset(0 0 0 0 round 4px);
+          clip-path: inset(0 0 0 0 round 4px);
+}
+
+.card__image {
+  -webkit-clip-path: inset(0 0 0 0 round 4px);
+          clip-path: inset(0 0 0 0 round 4px);
+}
+
+.card__image img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 .placeholder\:text-black\/0::-moz-placeholder {
   color: rgb(0 0 0 / 0);
 }
@@ -1463,6 +1462,14 @@ a {
   background-color: rgb(0 0 0 / 0.4);
 }
 
+.hover\:bg-black\/20:hover {
+  background-color: rgb(0 0 0 / 0.2);
+}
+
+.hover\:bg-black\/30:hover {
+  background-color: rgb(0 0 0 / 0.3);
+}
+
 .hover\:opacity-100:hover {
   opacity: 1;
 }
@@ -1494,6 +1501,11 @@ a {
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
 
+  .dark\:text-gray-400 {
+    --tw-text-opacity: 1;
+    color: rgb(156 163 175 / var(--tw-text-opacity));
+  }
+
   .dark\:text-teal-400 {
     --tw-text-opacity: 1;
     color: rgb(45 212 191 / var(--tw-text-opacity));
@@ -1504,13 +1516,16 @@ a {
     color: rgb(248 113 113 / var(--tw-text-opacity));
   }
 
-  .dark\:text-gray-400 {
-    --tw-text-opacity: 1;
-    color: rgb(156 163 175 / var(--tw-text-opacity));
-  }
-
   .hover\:dark\:bg-white\/40:hover {
     background-color: rgb(255 255 255 / 0.4);
+  }
+
+  .hover\:dark\:bg-white\/20:hover {
+    background-color: rgb(255 255 255 / 0.2);
+  }
+
+  .hover\:dark\:bg-white\/30:hover {
+    background-color: rgb(255 255 255 / 0.3);
   }
 }
 
@@ -1538,20 +1553,12 @@ a {
     width: 33.333333%;
   }
 
-  .md\:w-1\/2 {
-    width: 50%;
-  }
-
-  .md\:w-3\/4 {
-    width: 75%;
-  }
-
-  .md\:w-1\/4 {
-    width: 25%;
-  }
-
   .md\:w-2\/5 {
     width: 40%;
+  }
+
+  .md\:w-1\/2 {
+    width: 50%;
   }
 
   .md\:max-w-\[220px\] {

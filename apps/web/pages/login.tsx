@@ -7,7 +7,7 @@ type Props = {};
 
 const LoginPage = (props: Props) => {
   return (
-    <div>
+    <>
       <Head>
         <title>Lookout | Login</title>
         <meta
@@ -21,7 +21,7 @@ const LoginPage = (props: Props) => {
 
         <AuthCard />
       </main>
-    </div>
+    </>
   );
 };
 
