@@ -27,6 +27,8 @@ mixin _$SearchResponseModel {
   @JsonKey(name: "out_of")
   int get outOf => throw _privateConstructorUsedError;
   int get page => throw _privateConstructorUsedError;
+  @JsonKey(name: "request_params")
+  RequestParams get requestParams => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +47,10 @@ abstract class $SearchResponseModelCopyWith<$Res> {
       int found,
       List<ImageDocumentHelper> hits,
       @JsonKey(name: "out_of") int outOf,
-      int page});
+      int page,
+      @JsonKey(name: "request_params") RequestParams requestParams});
+
+  $RequestParamsCopyWith<$Res> get requestParams;
 }
 
 /// @nodoc
@@ -66,6 +71,7 @@ class _$SearchResponseModelCopyWithImpl<$Res, $Val extends SearchResponseModel>
     Object? hits = null,
     Object? outOf = null,
     Object? page = null,
+    Object? requestParams = null,
   }) {
     return _then(_value.copyWith(
       facetCounts: null == facetCounts
@@ -88,7 +94,19 @@ class _$SearchResponseModelCopyWithImpl<$Res, $Val extends SearchResponseModel>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      requestParams: null == requestParams
+          ? _value.requestParams
+          : requestParams // ignore: cast_nullable_to_non_nullable
+              as RequestParams,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RequestParamsCopyWith<$Res> get requestParams {
+    return $RequestParamsCopyWith<$Res>(_value.requestParams, (value) {
+      return _then(_value.copyWith(requestParams: value) as $Val);
+    });
   }
 }
 
@@ -105,7 +123,11 @@ abstract class _$$_SearchResponseModelCopyWith<$Res>
       int found,
       List<ImageDocumentHelper> hits,
       @JsonKey(name: "out_of") int outOf,
-      int page});
+      int page,
+      @JsonKey(name: "request_params") RequestParams requestParams});
+
+  @override
+  $RequestParamsCopyWith<$Res> get requestParams;
 }
 
 /// @nodoc
@@ -124,6 +146,7 @@ class __$$_SearchResponseModelCopyWithImpl<$Res>
     Object? hits = null,
     Object? outOf = null,
     Object? page = null,
+    Object? requestParams = null,
   }) {
     return _then(_$_SearchResponseModel(
       facetCounts: null == facetCounts
@@ -146,6 +169,10 @@ class __$$_SearchResponseModelCopyWithImpl<$Res>
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
               as int,
+      requestParams: null == requestParams
+          ? _value.requestParams
+          : requestParams // ignore: cast_nullable_to_non_nullable
+              as RequestParams,
     ));
   }
 }
@@ -158,7 +185,8 @@ class _$_SearchResponseModel implements _SearchResponseModel {
       required this.found,
       required final List<ImageDocumentHelper> hits,
       @JsonKey(name: "out_of") required this.outOf,
-      required this.page})
+      required this.page,
+      @JsonKey(name: "request_params") required this.requestParams})
       : _facetCounts = facetCounts,
         _hits = hits;
 
@@ -189,10 +217,13 @@ class _$_SearchResponseModel implements _SearchResponseModel {
   final int outOf;
   @override
   final int page;
+  @override
+  @JsonKey(name: "request_params")
+  final RequestParams requestParams;
 
   @override
   String toString() {
-    return 'SearchResponseModel(facetCounts: $facetCounts, found: $found, hits: $hits, outOf: $outOf, page: $page)';
+    return 'SearchResponseModel(facetCounts: $facetCounts, found: $found, hits: $hits, outOf: $outOf, page: $page, requestParams: $requestParams)';
   }
 
   @override
@@ -205,7 +236,9 @@ class _$_SearchResponseModel implements _SearchResponseModel {
             (identical(other.found, found) || other.found == found) &&
             const DeepCollectionEquality().equals(other._hits, _hits) &&
             (identical(other.outOf, outOf) || other.outOf == outOf) &&
-            (identical(other.page, page) || other.page == page));
+            (identical(other.page, page) || other.page == page) &&
+            (identical(other.requestParams, requestParams) ||
+                other.requestParams == requestParams));
   }
 
   @JsonKey(ignore: true)
@@ -216,7 +249,8 @@ class _$_SearchResponseModel implements _SearchResponseModel {
       found,
       const DeepCollectionEquality().hash(_hits),
       outOf,
-      page);
+      page,
+      requestParams);
 
   @JsonKey(ignore: true)
   @override
@@ -235,11 +269,15 @@ class _$_SearchResponseModel implements _SearchResponseModel {
 
 abstract class _SearchResponseModel implements SearchResponseModel {
   factory _SearchResponseModel(
-      {@JsonKey(name: "facet_counts") required final List<dynamic> facetCounts,
+      {@JsonKey(name: "facet_counts")
+          required final List<dynamic> facetCounts,
       required final int found,
       required final List<ImageDocumentHelper> hits,
-      @JsonKey(name: "out_of") required final int outOf,
-      required final int page}) = _$_SearchResponseModel;
+      @JsonKey(name: "out_of")
+          required final int outOf,
+      required final int page,
+      @JsonKey(name: "request_params")
+          required final RequestParams requestParams}) = _$_SearchResponseModel;
 
   factory _SearchResponseModel.fromJson(Map<String, dynamic> json) =
       _$_SearchResponseModel.fromJson;
@@ -257,8 +295,201 @@ abstract class _SearchResponseModel implements SearchResponseModel {
   @override
   int get page;
   @override
+  @JsonKey(name: "request_params")
+  RequestParams get requestParams;
+  @override
   @JsonKey(ignore: true)
   _$$_SearchResponseModelCopyWith<_$_SearchResponseModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+RequestParams _$RequestParamsFromJson(Map<String, dynamic> json) {
+  return _RepuestParams.fromJson(json);
+}
+
+/// @nodoc
+mixin _$RequestParams {
+  @JsonKey(name: 'collection_name')
+  String get collectioName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'per_page')
+  int get perPage => throw _privateConstructorUsedError;
+  @JsonKey(name: 'q')
+  String get query => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $RequestParamsCopyWith<RequestParams> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $RequestParamsCopyWith<$Res> {
+  factory $RequestParamsCopyWith(
+          RequestParams value, $Res Function(RequestParams) then) =
+      _$RequestParamsCopyWithImpl<$Res, RequestParams>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'collection_name') String collectioName,
+      @JsonKey(name: 'per_page') int perPage,
+      @JsonKey(name: 'q') String query});
+}
+
+/// @nodoc
+class _$RequestParamsCopyWithImpl<$Res, $Val extends RequestParams>
+    implements $RequestParamsCopyWith<$Res> {
+  _$RequestParamsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collectioName = null,
+    Object? perPage = null,
+    Object? query = null,
+  }) {
+    return _then(_value.copyWith(
+      collectioName: null == collectioName
+          ? _value.collectioName
+          : collectioName // ignore: cast_nullable_to_non_nullable
+              as String,
+      perPage: null == perPage
+          ? _value.perPage
+          : perPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_RepuestParamsCopyWith<$Res>
+    implements $RequestParamsCopyWith<$Res> {
+  factory _$$_RepuestParamsCopyWith(
+          _$_RepuestParams value, $Res Function(_$_RepuestParams) then) =
+      __$$_RepuestParamsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'collection_name') String collectioName,
+      @JsonKey(name: 'per_page') int perPage,
+      @JsonKey(name: 'q') String query});
+}
+
+/// @nodoc
+class __$$_RepuestParamsCopyWithImpl<$Res>
+    extends _$RequestParamsCopyWithImpl<$Res, _$_RepuestParams>
+    implements _$$_RepuestParamsCopyWith<$Res> {
+  __$$_RepuestParamsCopyWithImpl(
+      _$_RepuestParams _value, $Res Function(_$_RepuestParams) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? collectioName = null,
+    Object? perPage = null,
+    Object? query = null,
+  }) {
+    return _then(_$_RepuestParams(
+      collectioName: null == collectioName
+          ? _value.collectioName
+          : collectioName // ignore: cast_nullable_to_non_nullable
+              as String,
+      perPage: null == perPage
+          ? _value.perPage
+          : perPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_RepuestParams implements _RepuestParams {
+  _$_RepuestParams(
+      {@JsonKey(name: 'collection_name') required this.collectioName,
+      @JsonKey(name: 'per_page') required this.perPage,
+      @JsonKey(name: 'q') required this.query});
+
+  factory _$_RepuestParams.fromJson(Map<String, dynamic> json) =>
+      _$$_RepuestParamsFromJson(json);
+
+  @override
+  @JsonKey(name: 'collection_name')
+  final String collectioName;
+  @override
+  @JsonKey(name: 'per_page')
+  final int perPage;
+  @override
+  @JsonKey(name: 'q')
+  final String query;
+
+  @override
+  String toString() {
+    return 'RequestParams(collectioName: $collectioName, perPage: $perPage, query: $query)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RepuestParams &&
+            (identical(other.collectioName, collectioName) ||
+                other.collectioName == collectioName) &&
+            (identical(other.perPage, perPage) || other.perPage == perPage) &&
+            (identical(other.query, query) || other.query == query));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, collectioName, perPage, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_RepuestParamsCopyWith<_$_RepuestParams> get copyWith =>
+      __$$_RepuestParamsCopyWithImpl<_$_RepuestParams>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_RepuestParamsToJson(
+      this,
+    );
+  }
+}
+
+abstract class _RepuestParams implements RequestParams {
+  factory _RepuestParams(
+      {@JsonKey(name: 'collection_name') required final String collectioName,
+      @JsonKey(name: 'per_page') required final int perPage,
+      @JsonKey(name: 'q') required final String query}) = _$_RepuestParams;
+
+  factory _RepuestParams.fromJson(Map<String, dynamic> json) =
+      _$_RepuestParams.fromJson;
+
+  @override
+  @JsonKey(name: 'collection_name')
+  String get collectioName;
+  @override
+  @JsonKey(name: 'per_page')
+  int get perPage;
+  @override
+  @JsonKey(name: 'q')
+  String get query;
+  @override
+  @JsonKey(ignore: true)
+  _$$_RepuestParamsCopyWith<_$_RepuestParams> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

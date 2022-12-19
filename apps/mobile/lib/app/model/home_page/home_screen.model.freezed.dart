@@ -21,6 +21,9 @@ HomeScreenModel _$HomeScreenModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$HomeScreenModel {
   String get query => throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
+  int get totalFound => throw _privateConstructorUsedError;
+  bool get loading => throw _privateConstructorUsedError;
   List<ImageDocumentHelper> get images => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +38,12 @@ abstract class $HomeScreenModelCopyWith<$Res> {
           HomeScreenModel value, $Res Function(HomeScreenModel) then) =
       _$HomeScreenModelCopyWithImpl<$Res, HomeScreenModel>;
   @useResult
-  $Res call({String query, List<ImageDocumentHelper> images});
+  $Res call(
+      {String query,
+      int currentPage,
+      int totalFound,
+      bool loading,
+      List<ImageDocumentHelper> images});
 }
 
 /// @nodoc
@@ -52,6 +60,9 @@ class _$HomeScreenModelCopyWithImpl<$Res, $Val extends HomeScreenModel>
   @override
   $Res call({
     Object? query = null,
+    Object? currentPage = null,
+    Object? totalFound = null,
+    Object? loading = null,
     Object? images = null,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +70,18 @@ class _$HomeScreenModelCopyWithImpl<$Res, $Val extends HomeScreenModel>
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalFound: null == totalFound
+          ? _value.totalFound
+          : totalFound // ignore: cast_nullable_to_non_nullable
+              as int,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       images: null == images
           ? _value.images
           : images // ignore: cast_nullable_to_non_nullable
@@ -75,7 +98,12 @@ abstract class _$$_HomeScreenModelCopyWith<$Res>
       __$$_HomeScreenModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String query, List<ImageDocumentHelper> images});
+  $Res call(
+      {String query,
+      int currentPage,
+      int totalFound,
+      bool loading,
+      List<ImageDocumentHelper> images});
 }
 
 /// @nodoc
@@ -90,6 +118,9 @@ class __$$_HomeScreenModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? query = null,
+    Object? currentPage = null,
+    Object? totalFound = null,
+    Object? loading = null,
     Object? images = null,
   }) {
     return _then(_$_HomeScreenModel(
@@ -97,6 +128,18 @@ class __$$_HomeScreenModelCopyWithImpl<$Res>
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalFound: null == totalFound
+          ? _value.totalFound
+          : totalFound // ignore: cast_nullable_to_non_nullable
+              as int,
+      loading: null == loading
+          ? _value.loading
+          : loading // ignore: cast_nullable_to_non_nullable
+              as bool,
       images: null == images
           ? _value._images
           : images // ignore: cast_nullable_to_non_nullable
@@ -107,16 +150,27 @@ class __$$_HomeScreenModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_HomeScreenModel implements _HomeScreenModel {
+class _$_HomeScreenModel extends _HomeScreenModel {
   _$_HomeScreenModel(
-      {required this.query, required final List<ImageDocumentHelper> images})
-      : _images = images;
+      {required this.query,
+      required this.currentPage,
+      required this.totalFound,
+      required this.loading,
+      required final List<ImageDocumentHelper> images})
+      : _images = images,
+        super._();
 
   factory _$_HomeScreenModel.fromJson(Map<String, dynamic> json) =>
       _$$_HomeScreenModelFromJson(json);
 
   @override
   final String query;
+  @override
+  final int currentPage;
+  @override
+  final int totalFound;
+  @override
+  final bool loading;
   final List<ImageDocumentHelper> _images;
   @override
   List<ImageDocumentHelper> get images {
@@ -127,7 +181,7 @@ class _$_HomeScreenModel implements _HomeScreenModel {
 
   @override
   String toString() {
-    return 'HomeScreenModel(query: $query, images: $images)';
+    return 'HomeScreenModel(query: $query, currentPage: $currentPage, totalFound: $totalFound, loading: $loading, images: $images)';
   }
 
   @override
@@ -136,13 +190,18 @@ class _$_HomeScreenModel implements _HomeScreenModel {
         (other.runtimeType == runtimeType &&
             other is _$_HomeScreenModel &&
             (identical(other.query, query) || other.query == query) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.totalFound, totalFound) ||
+                other.totalFound == totalFound) &&
+            (identical(other.loading, loading) || other.loading == loading) &&
             const DeepCollectionEquality().equals(other._images, _images));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, query, const DeepCollectionEquality().hash(_images));
+  int get hashCode => Object.hash(runtimeType, query, currentPage, totalFound,
+      loading, const DeepCollectionEquality().hash(_images));
 
   @JsonKey(ignore: true)
   @override
@@ -158,16 +217,26 @@ class _$_HomeScreenModel implements _HomeScreenModel {
   }
 }
 
-abstract class _HomeScreenModel implements HomeScreenModel {
+abstract class _HomeScreenModel extends HomeScreenModel {
   factory _HomeScreenModel(
       {required final String query,
+      required final int currentPage,
+      required final int totalFound,
+      required final bool loading,
       required final List<ImageDocumentHelper> images}) = _$_HomeScreenModel;
+  _HomeScreenModel._() : super._();
 
   factory _HomeScreenModel.fromJson(Map<String, dynamic> json) =
       _$_HomeScreenModel.fromJson;
 
   @override
   String get query;
+  @override
+  int get currentPage;
+  @override
+  int get totalFound;
+  @override
+  bool get loading;
   @override
   List<ImageDocumentHelper> get images;
   @override

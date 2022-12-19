@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lookout/app/globalproviders.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -33,7 +34,7 @@ class _AuthenticationWrapperState extends ConsumerState<AuthenticationWrapper> {
   }
 
   void _authWrapper() async {
-    await Future.delayed(Duration.zero);
+    await Future.delayed(const Duration(seconds: 2));
     if (!mounted) {
       return;
     }
@@ -66,10 +67,25 @@ class _AuthenticationWrapperState extends ConsumerState<AuthenticationWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Scaffold(
+        body: Scaffold(
+            body: AnnotatedRegion<SystemUiOverlayStyle>(
+                value: SystemUiOverlayStyle.light,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [Colors.black, Color.fromRGBO(18, 50, 39, 1.0)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter),
+                  ),
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: const Center(
+                    child: Text(
+                      '👀',
+                      style: TextStyle(fontSize: 80),
+                    ),
+                  ),
+                ))));
   }
 }
