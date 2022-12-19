@@ -55,7 +55,7 @@ const ProfileTab = (props: Props) => {
           {user == null ? (
             <Link
               href="/login"
-              className="dark:text-teal-400 text-teal-600 flex items-center gap-2"
+              className="dark:text-teal-400 text-teal-600 flex items-center gap-2 hover:scale-105 transition duration-300"
             >
               <div>
                 <SignIn size={24} weight="bold" />
@@ -67,7 +67,7 @@ const ProfileTab = (props: Props) => {
               {router.pathname == "/profile" ? (
                 <Link
                   href="/"
-                  className="text-teal-600 dark:text-teal-400 flex items-center gap-2"
+                  className="text-teal-600 dark:text-teal-400 flex items-center gap-2 hover:scale-105 transition duration-300"
                 >
                   <div>
                     <HouseSimple
@@ -81,7 +81,7 @@ const ProfileTab = (props: Props) => {
               ) : (
                 <Link
                   href="/profile"
-                  className="text-teal-600 dark:text-teal-400 flex items-center justify-between gap-2"
+                  className="text-teal-600 dark:text-teal-400 flex items-center justify-between gap-2 hover:scale-105 transition duration-300"
                 >
                   <div>
                     <UserFocus
@@ -95,7 +95,7 @@ const ProfileTab = (props: Props) => {
               )}
               <div
                 onClick={signout}
-                className="text-red-600 dark:text-red-400 flex items-center gap-2 cursor-pointer"
+                className="text-red-600 dark:text-red-400 flex items-center gap-2 cursor-pointer hover:scale-105 transition duration-300"
               >
                 <div>
                   <Power

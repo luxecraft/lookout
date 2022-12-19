@@ -5,15 +5,16 @@ import BottomBar from "../components/BottomBar";
 import HitList from "../components/HitList";
 import Onboarding from "../components/Onboarding";
 import ProfileTab from "../components/ProfileTab";
-import SearchBar from "../components/SearchBar";
 
 export default function Home() {
   const [hasOnboarded, setHasOnboarded] = useState(false);
 
   useEffect(() => {
-    const hasOnboarded = localStorage.getItem("hasOnboarded");
-    if (hasOnboarded && hasOnboarded == "true") {
-      setHasOnboarded(true);
+    if (typeof window !== "undefined") {
+      const hasOnboarded = localStorage.getItem("hasOnboarded");
+      if (hasOnboarded && hasOnboarded == "true") {
+        setHasOnboarded(true);
+      }
     }
   }, []);
 

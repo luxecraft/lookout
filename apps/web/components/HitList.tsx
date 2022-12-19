@@ -157,7 +157,7 @@ const Hits = ({ hits, hasMore, refineNext }) => {
                     <img
                       src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
                       alt={hit.title}
-                      className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-lg"
+                      className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-md"
                     />
                   </div>
                 </div>
