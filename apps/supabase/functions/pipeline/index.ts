@@ -21,6 +21,25 @@ serve(async (req: any) => {
     if (data.type === "INSERT" && data.table === TABLE_NAME) {
         const creds = await retries(fetch(`${BLOB_URL}/credentials.json`));
         const auth = googleAuth.fromJSON(await creds.json());
+        console.log(data.record.id);
+        const channel = supabase.channel(data.record.id);
+        const subscribe = await new Promise((resolve) => {
+            channel.subscribe((payload) => {
+                resolve(payload);
+            });
+        });
+
+        if (subscribe === "SUBSCRIBED") {
+            console.log("Subscribed to channel");
+            const res = await channel.send({
+                type: "broadcast",
+                event: "progress",
+                payload: {
+                    message: "ML_PROCESSING",
+                },
+            });
+            console.log(res);
+        }
 
         const client = new Vision(auth);
         const full_url = `${BLOB_URL}${data.record.image_url}`;
@@ -60,6 +79,18 @@ serve(async (req: any) => {
         const parsedData = parseData(response?.responses?.[0]);
         console.log(parsedData);
 
+        if (subscribe === "SUBSCRIBED") {
+            console.log("Subscribed to channel");
+            const res = await channel.send({
+                type: "broadcast",
+                event: "progress",
+                payload: {
+                    message: "ML_COMPLETE",
+                },
+            });
+            console.log(res);
+        }
+
         // Update the record with the parsed data
         const { data: record, error } = await retries(
             supabase
@@ -70,6 +101,18 @@ serve(async (req: any) => {
                 .eq("id", data.record.id)
                 .select()
         );
+
+        if (subscribe === "SUBSCRIBED") {
+            console.log("Subscribed to channel");
+            const res = await channel.send({
+                type: "broadcast",
+                event: "progress",
+                payload: {
+                    message: "DB_WRITE_COMPLETE",
+                },
+            });
+            console.log(res);
+        }
 
         console.log(record);
 
@@ -84,6 +127,18 @@ serve(async (req: any) => {
             })
         );
         console.log(typesense_record);
+
+        if (subscribe === "SUBSCRIBED") {
+            console.log("Subscribed to channel");
+            const res = await channel.send({
+                type: "broadcast",
+                event: "progress",
+                payload: {
+                    message: "INDEX_WRITE_COMPLETE",
+                },
+            });
+            console.log(res);
+        }
 
         return new Response(JSON.stringify(data), {
             headers: { "Content-Type": "application/json" },
