@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lookout/app/globalproviders.dart';
@@ -21,6 +22,18 @@ class ProfileScreen extends ConsumerWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           title: const Text('Profile'),
+          actions: [
+            Tooltip(
+              message: 'Sign Out',
+              child: GestureDetector(
+                onTap: () => ref.read(supabaseClientProvider).auth.signOut(),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Icon(CupertinoIcons.profile_circled),
+                ),
+              ),
+            )
+          ],
         ),
         body: Center(
           child: Column(
@@ -36,20 +49,18 @@ class ProfileScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 30),
               Text(
-                ref
-                        .watch(supabaseClientProvider)
-                        .auth
-                        .currentUser!
-                        .userMetadata?['full_name'] ??
-                    'No Name',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
+                  ref
+                          .watch(supabaseClientProvider)
+                          .auth
+                          .currentUser!
+                          .userMetadata?['full_name'] ??
+                      'No Name',
+                  style: Theme.of(context).textTheme.titleLarge),
               const SizedBox(height: 10),
               Text(
-                ref.watch(supabaseClientProvider).auth.currentUser!.email ?? '',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              // Text(ref.watch(supabaseClientProvider).auth.currentUser)
+                  ref.watch(supabaseClientProvider).auth.currentUser!.email ??
+                      '',
+                  style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ),
