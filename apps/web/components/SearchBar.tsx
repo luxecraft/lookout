@@ -49,10 +49,6 @@ const Searcher = ({ currentRefinement, refine }) => {
   }, [searchBarText, refine]);
 
   useEffect(() => {
-    console.log('"', query, '"');
-  }, [query]);
-
-  useEffect(() => {
     refine(query);
   }, [query]);
 
