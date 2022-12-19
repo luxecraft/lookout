@@ -1,7 +1,6 @@
 //NextJS Api that takes a picture and uploads it to a supabase bucket
 import { NextApiRequest, NextApiResponse } from "next";
 import supabase from "../../lib/SupabaseServerConfig";
-import { v4 as uuidv4 } from "uuid";
 
 export const config = {
   api: {
