@@ -104,6 +104,10 @@ a {
   animation: fadein 0.5s ease;
 }
 
+.fadein {
+  animation: fadein 0.5s ease;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;
@@ -161,4 +165,8 @@ a {
   content: "";
   display: inline-block;
   cursor: pointer;
+}
+
+.onboarding-card {
+  animation: popup 0.5s ease;
 }

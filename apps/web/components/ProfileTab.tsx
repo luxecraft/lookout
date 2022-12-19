@@ -31,7 +31,7 @@ const ProfileTab = (props: Props) => {
   }, []);
 
   return (
-    <div className="flex w-1/4 max-h-fit flex-col justify-end gap-4 px-10">
+    <div className="flex duration-300 fadein w-1/4 max-h-fit flex-col justify-end gap-4 px-10">
       <div
         onClick={() => {
           setIsHovering(!isHovering);

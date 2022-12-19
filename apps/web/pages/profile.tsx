@@ -62,7 +62,7 @@ const ProfilePage = (props: Props) => {
         3000: 4,
         2000: 4,
       });
-    } else if (userPosts.length > 5 && !isEqual(bkPoint, breakPointObj)) {
+    } else if (userPosts.length >= 5 && !isEqual(bkPoint, breakPointObj)) {
       setBkPoint(breakPointObj);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -90,14 +90,16 @@ const ProfilePage = (props: Props) => {
 
   const updatePosts = async () => {
     //Get all images of user with user id
-    const res = await axios.post("/api/getPhotos", { userId: user?.id });
+    if (user?.id != undefined) {
+      const res = await axios.post("/api/getPhotos", { userId: user?.id });
 
-    if (res.data) {
-      if (Array.isArray(res.data)) {
-        setUserPosts(res.data);
-        console.log(res.data);
-      } else {
-        console.log(typeof res.data.data);
+      if (res.data) {
+        if (Array.isArray(res.data)) {
+          setUserPosts(res.data);
+          console.log(res.data);
+        } else {
+          console.log(typeof res.data.data);
+        }
       }
     }
   };
