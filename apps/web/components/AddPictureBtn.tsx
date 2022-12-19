@@ -66,7 +66,7 @@ const AddPictureBtn = (props: Props) => {
           ) : (
             <div className="flex items-center gap-4">
               <FilePlus size={24} weight="fill" />
-              Select file
+              Upload Image
             </div>
           )}
         </label>
