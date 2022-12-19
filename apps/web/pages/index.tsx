@@ -2,6 +2,7 @@ import Head from "next/head";
 import BlurryCircle from "../components/BlurryCircle";
 import BottomBar from "../components/BottomBar";
 import HitList from "../components/HitList";
+import ProfileTab from "../components/ProfileTab";
 import SearchBar from "../components/SearchBar";
 
 export default function Home() {
@@ -17,13 +18,10 @@ export default function Home() {
       </Head>
       <main className="min-h-screen dark-pattern p-10 flex flex-col items-center justify-center after-splash">
         <BlurryCircle />
-
+        <ProfileTab />
         <HitList />
-
         <BottomBar />
       </main>
-
-      <footer></footer>
     </div>
   );
 }

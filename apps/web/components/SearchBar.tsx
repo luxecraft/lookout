@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { SearchBox, connectSearchBox } from "react-instantsearch-dom";
 import { BookmarkSimple, Cube, MagnifyingGlass } from "phosphor-react";
+import Stats from "./Stats";
 const Searcher = ({ currentRefinement, refine }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -12,7 +13,10 @@ const Searcher = ({ currentRefinement, refine }) => {
 
   useEffect(() => {
     const listener = (e) => {
-      if ((e.key === "Tab" || e.keyCode === 32) && searchBarText !== "") {
+      if (
+        (e.key === "Tab" || e.keyCode === 32) &&
+        searchBarText.trim() !== ""
+      ) {
         setLabels([...labels, searchBarText]);
         setSearchBarText("");
       }
