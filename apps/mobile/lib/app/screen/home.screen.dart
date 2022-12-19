@@ -12,14 +12,14 @@ import 'package:lookout/app/viewmodel/home_screen.viewmodel.dart';
 class HomeScreen extends ConsumerWidget {
   late final StateNotifierProvider<HomeScreenViewModel, HomeScreenModel>
       _homeScreenProvider;
-  late final TextEditingController _controller;
+  late final TextEditingController _textEditingController;
 
   HomeScreen({super.key}) {
     _homeScreenProvider = StateNotifierProvider((_) => HomeScreenViewModel(
         HomeScreenModel(images: [], query: ''),
         typesenseService:
             TypesenseService(client: TypesenseService.clientInstance)));
-    _controller = TextEditingController();
+    _textEditingController = TextEditingController();
   }
 
   @override
@@ -52,58 +52,90 @@ class HomeScreen extends ConsumerWidget {
                         .images
                         .map((e) => ImageView(imageDocument: e.document))
                         .toList())),
-            // Positioned(
-            //   bottom: 60,
-            //   left: 20,
-            // child:
             Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 24.0, right: 24.0, bottom: 40),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(9.0),
-                    child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                        child: Container(
-                          color: Colors.grey.withOpacity(0.2),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0, vertical: 4.0),
-                          child: TextField(
-                              controller: _controller,
-                              onChanged: ref
-                                  .read(_homeScreenProvider.notifier)
-                                  .updateQuery,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  prefixIcon: const Icon(Icons.search,
-                                      color: Colors.white),
-                                  suffixIcon:
-                                      ref.watch(_homeScreenProvider).query != ''
-                                          ? Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 8.0),
-                                              child: GestureDetector(
-                                                  child: const Icon(
-                                                    Icons.close,
-                                                    color: Colors.white,
-                                                  ),
-                                                  onTap: () {
-                                                    ref
-                                                        .read(
-                                                            _homeScreenProvider
-                                                                .notifier)
-                                                        .updateQuery('');
-                                                    _controller.text = '';
-                                                  }),
-                                            )
-                                          : null),
-                              style: Theme.of(context).textTheme.titleLarge,
-                              cursorColor: Colors.white),
-                        )),
-                  )),
-            ),
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 24.0, right: 24.0, bottom: 40),
+                    child: LayoutBuilder(builder: (context, constraints) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: constraints.maxWidth - (24 + 50),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(9.0),
+                                child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10.0, sigmaY: 10.0),
+                                    child: Container(
+                                        color: Colors.grey.withOpacity(0.2),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 4.0, vertical: 4.0),
+                                        child: TextField(
+                                            onChanged: ref
+                                                .read(_homeScreenProvider
+                                                    .notifier)
+                                                .updateQuery,
+                                            decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                prefixIcon: const Icon(
+                                                    Icons.search,
+                                                    color: Colors.white),
+                                                suffixIcon: ref
+                                                            .read(
+                                                                _homeScreenProvider)
+                                                            .query !=
+                                                        ''
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    8.0),
+                                                        child: GestureDetector(
+                                                            child: const Icon(
+                                                              Icons.close,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            onTap: () {
+                                                              ref
+                                                                  .read(_homeScreenProvider
+                                                                      .notifier)
+                                                                  .updateQuery(
+                                                                      '');
+                                                              _textEditingController
+                                                                  .text = '';
+                                                            }),
+                                                      )
+                                                    : null),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleLarge,
+                                            cursorColor: Colors.white)))),
+                          ),
+                          const SizedBox(width: 24),
+                          ClipRRect(
+                              borderRadius: BorderRadius.circular(9.0),
+                              child: InkWell(
+                                onTap: () =>
+                                    Navigator.pushNamed(context, '/profile'),
+                                child: BackdropFilter(
+                                    filter: ImageFilter.blur(
+                                        sigmaX: 10.0, sigmaY: 10.0),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.transparent,
+                                        child: Text('👀',
+                                            style: TextStyle(fontSize: 26)),
+                                      ),
+                                    )),
+                              ))
+                        ],
+                      );
+                    })))
           ])),
     ));
   }
