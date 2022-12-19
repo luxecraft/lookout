@@ -30,6 +30,29 @@ class LoginScreen extends ConsumerWidget {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              const Text('👀', style: TextStyle(fontSize: 80)),
+                              Text('Lookout',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineLarge),
+                              const Text('A new way to look at images'),
+                              const SizedBox(height: 40),
+                              RichText(
+                                  text: TextSpan(children: const [
+                                TextSpan(
+                                    text:
+                                        '> Search through images using keywords or tags or vibes that you need.\n\n'),
+                                TextSpan(
+                                    text:
+                                        '> You can also search for textual data that can be found inside the images.\n\n'),
+                                TextSpan(
+                                    text:
+                                        '> We have populated hudreds of thousands of images for you to explore.\n\n'),
+                                TextSpan(
+                                    text:
+                                        '> The most exciting part is that you can upload your own images and have them processed to brand it with tags and keywords!.\n'),
+                              ], style: Theme.of(context).textTheme.caption)),
+                              const SizedBox(height: 40),
                               SignInButton(
                                   assetPath: ImageAssets.googleLogo,
                                   label: 'Sign In with Google',
