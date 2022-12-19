@@ -61,12 +61,17 @@ serve(async (req: any) => {
         console.log(parsedData);
 
         // Update the record with the parsed data
-        const { error } = await retries(
-            supabase.from(TABLE_NAME).upsert({
-                ...data.record,
-                ...parseData,
-            })
+        const { data: record, error } = await retries(
+            supabase
+                .from(TABLE_NAME)
+                .update({
+                    ...parsedData,
+                })
+                .eq("id", data.record.id)
+                .select()
         );
+
+        console.log(record);
 
         if (error) {
             console.log(error);
