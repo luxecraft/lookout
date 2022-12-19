@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lookout/app/globalproviders.dart';
 import 'package:lookout/app/screen/home.screen.dart';
 import 'package:lookout/app/screen/login.screen.dart';
+import 'package:lookout/app/screen/profile.screen.dart';
 import 'package:lookout/app/wrapper/authentication.wrapper.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -25,14 +26,15 @@ class MyApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       navigatorKey: navigationKeyProvider,
       theme: ThemeData.dark().copyWith(
-          appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
-          textTheme:
-              ThemeData.dark().textTheme.apply(fontFamily: 'Silkscreen')),
+        appBarTheme: const AppBarTheme(backgroundColor: Colors.transparent),
+        textTheme: ThemeData.dark().textTheme.apply(fontFamily: 'Silkscreen'),
+      ),
       initialRoute: '/',
       routes: {
         '/': (_) => const AuthenticationWrapper(),
         '/login': (_) => const LoginScreen(),
-        '/home': (_) => HomeScreen(),
+        '/home': (_) => const HomeScreen(),
+        '/profile': (_) => const ProfileScreen(),
       },
     );
   }
