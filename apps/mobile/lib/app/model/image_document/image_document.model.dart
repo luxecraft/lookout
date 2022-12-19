@@ -9,6 +9,7 @@ class ImageDocument with _$ImageDocument {
     required List<String> colors,
     required int height,
     required String id,
+    // ignore: invalid_annotation_target
     @JsonKey(name: 'image_url') required String imageUrl,
     required List<String> labels,
     required bool nfsw,

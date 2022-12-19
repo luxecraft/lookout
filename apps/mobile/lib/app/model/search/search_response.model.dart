@@ -12,10 +12,23 @@ class SearchResponseModel with _$SearchResponseModel {
     required List<ImageDocumentHelper> hits,
     @JsonKey(name: "out_of") required int outOf,
     required int page,
+    @JsonKey(name: "request_params") required RequestParams requestParams,
   }) = _SearchResponseModel;
 
   factory SearchResponseModel.fromJson(Map<String, dynamic> json) =>
       _$SearchResponseModelFromJson(json);
+}
+
+@freezed
+class RequestParams with _$RequestParams {
+  factory RequestParams({
+    @JsonKey(name: 'collection_name') required String collectioName,
+    @JsonKey(name: 'per_page') required int perPage,
+    @JsonKey(name: 'q') required String query,
+  }) = _RepuestParams;
+
+  factory RequestParams.fromJson(Map<String, dynamic> json) =>
+      _$RequestParamsFromJson(json);
 }
 
 @freezed
