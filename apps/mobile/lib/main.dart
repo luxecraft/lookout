@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
       routes: {
         '/': (_) => const AuthenticationWrapper(),
         '/login': (_) => const LoginScreen(),
-        '/home': (_) => HomeScreen(),
+        '/home': (_) => const HomeScreen(),
         '/profile': (_) => const ProfileScreen(),
       },
     );
