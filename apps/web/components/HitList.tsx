@@ -1,5 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useCallback, useEffect, useRef, useState, createRef } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  createRef,
+} from "react";
 import Masonry from "react-masonry-css";
 import { isEqual } from "lodash";
 import {
@@ -81,10 +87,12 @@ const Hits = ({ hits, hasMore, refineNext }) => {
   }, [hits]);
 
   const cardRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
-  cardRefs.current = hits.map((_, i) => cardRefs.current[i] = createRef());
+  cardRefs.current = hits.map((_, i) => (cardRefs.current[i] = createRef()));
 
   const cardThreeDRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
-  cardThreeDRefs.current = hits.map((_, i) => cardThreeDRefs.current[i] = createRef());
+  cardThreeDRefs.current = hits.map(
+    (_, i) => (cardThreeDRefs.current[i] = createRef())
+  );
 
   const onTiltCard = useCallback((e: React.MouseEvent, index: number) => {
     let w = cardRefs.current[index].current?.clientWidth;
@@ -97,15 +105,19 @@ const Hits = ({ hits, hasMore, refineNext }) => {
     let rY = (Y - 0.5) * 26;
 
     if (cardThreeDRefs.current[index].current) {
-      cardThreeDRefs.current[index].current!.style.transform = `rotateY(${rX}deg) rotateX(${rY}deg)`;
+      cardThreeDRefs.current[
+        index
+      ].current!.style.transform = `rotateY(${rX}deg) rotateX(${rY}deg)`;
     }
   }, []);
 
   const onUntiltCard = useCallback((e: React.MouseEvent, index: number) => {
     if (cardThreeDRefs.current[index].current) {
-      cardThreeDRefs.current[index].current!.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      cardThreeDRefs.current[
+        index
+      ].current!.style.transform = `rotateY(0deg) rotateX(0deg)`;
     }
-  }, [])
+  }, []);
 
   return (
     <Masonry className="flex" breakpointCols={bkPoint}>
@@ -114,14 +126,23 @@ const Hits = ({ hits, hasMore, refineNext }) => {
           <div className="card">
             <div className="card__wrapper">
               <div className="card__3d" ref={cardThreeDRefs.current[index]}>
-                <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]" ref={cardRefs.current[index]} onMouseMove={(e) => onTiltCard(e, index)} onMouseLeave={(e) => onUntiltCard(e, index)}>
+                <div
+                  className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]"
+                  ref={cardRefs.current[index]}
+                  onMouseMove={(e) => onTiltCard(e, index)}
+                  onMouseLeave={(e) => onUntiltCard(e, index)}
+                >
                   <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/30  hover:bg-black/30 z-10">
                     <div className="px-4 drop-shadow-lg">
-                      <a href={hit.post_url} target="_blank" rel="noreferrer noopener">
+                      <a
+                        href={hit.post_url}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                      >
                         <SourceLogo source={hit.source} />
                       </a>
                     </div>
-                    <div className="flex overflow-scroll">
+                    <div className="flex px-2 overflow-scroll">
                       {hit.labels.map((label) => (
                         <div
                           className="mx-2 whitespace-nowrap  font-silk text-white bg-black/50 text-xs md:text-sm font-bold  rounded-md p-1"

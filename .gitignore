@@ -38,3 +38,4 @@ leftover.sh
 credentials.json
 
 .vscode
+**/.DS_Store
