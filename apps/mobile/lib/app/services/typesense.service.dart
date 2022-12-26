@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:lookout/app/model/search/search_response.model.dart';
 import 'package:typesense/typesense.dart';
@@ -21,8 +18,9 @@ class TypesenseService {
         .collection('images')
         .documents
         .search(searchParameters)
-        .onError((error, stackTrace) => throw 'Search Error');
-    debugPrint(jsonEncode(res));
+        .onError((error, stackTrace) {
+      throw 'Search Error';
+    });
     return SearchResponseModel.fromJson(res);
   }
 }

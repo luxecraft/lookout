@@ -93,8 +93,6 @@ const ProfilePage = (props: Props) => {
       if (res.data) {
         if (Array.isArray(res.data)) {
           setUserPosts(res.data);
-        } else {
-          console.log(typeof res.data.data);
         }
       }
     }

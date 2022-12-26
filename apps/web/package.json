@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/vision": "^3.0.1",
     "@supabase/supabase-js": "^2.2.0",
     "@types/node": "18.11.14",
     "@types/react": "18.0.26",

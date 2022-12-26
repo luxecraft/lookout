@@ -27,18 +27,18 @@ class SignInButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(assetPath,
                 height: 24.0,
                 width: 24.0,
                 color: applyForLogo ? foregroundColor : null),
             const SizedBox(width: 20.0),
-            Expanded(
-                child: Text(label,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1
-                        ?.apply(color: foregroundColor))),
+            Text(label,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.apply(color: foregroundColor)),
           ],
         ),
       ),

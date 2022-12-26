@@ -8,40 +8,50 @@ import {
     TOTAL,
 } from "./config";
 import fs from "fs";
+import retry from "async-retry";
 
 const client = new ImageAnnotatorClient();
 type Request = protos.google.cloud.vision.v1.IBatchAnnotateImagesRequest;
 
 export async function parseBatchImage(i: number, j: number) {
     const requests = [];
+
     for (let k = 0; k < MICRO_BATCH_SIZE; k++) {
         const filePath = `${IMAGES_BASE_PATH}/images_${i}/images_${i}${j}/images_${i}${j}${k}.jpeg`;
         requests.push({
-            image: {
-                content: fs.readFileSync(filePath),
+            request: {
+                image: {
+                    content: fs.readFileSync(filePath),
+                },
+                features: [
+                    {
+                        type: "LABEL_DETECTION",
+                    },
+                    {
+                        type: "TEXT_DETECTION",
+                    },
+                    {
+                        type: "IMAGE_PROPERTIES",
+                    },
+                    {
+                        type: "SAFE_SEARCH_DETECTION",
+                    },
+                ],
             },
-            features: [
-                {
-                    type: "LABEL_DETECTION",
-                },
-                {
-                    type: "TEXT_DETECTION",
-                },
-                {
-                    type: "IMAGE_PROPERTIES",
-                },
-                {
-                    type: "SAFE_SEARCH_DETECTION",
-                },
-            ],
+            number: k,
         });
     }
-    let l = 0;
     while (requests.length) {
+        const reqs = requests.splice(0, BATCH_ANNOTATE_IMAGES);
         const batchRequest: Request = {
-            requests: requests.splice(0, BATCH_ANNOTATE_IMAGES),
+            requests: reqs.map((r) => r.request),
         };
-        const [batchResponse] = await client.batchAnnotateImages(batchRequest);
+        const [batchResponse] = await retry(
+            () => client.batchAnnotateImages(batchRequest),
+            {
+                retries: 5,
+            }
+        );
         const responses = batchResponse.responses;
         for (let k = 0; k < responses.length; k++) {
             if (responses[k].error) {
@@ -49,16 +59,11 @@ export async function parseBatchImage(i: number, j: number) {
                 return;
             }
             fs.writeFileSync(
-                `${IMAGES_VISION_BASE_PATH}/vision_${i}/vision_${i}${j}/vision_${i}${j}${
-                    k + l * BATCH_ANNOTATE_IMAGES
-                }.json`,
+                `${IMAGES_VISION_BASE_PATH}/vision_${i}/vision_${i}${j}/vision_${i}${j}${reqs[k].number}.json`,
                 JSON.stringify(responses[k], null, 2)
             );
-            console.log(
-                `Written vision_${i}${j}${k + l * BATCH_ANNOTATE_IMAGES}.json`
-            );
+            console.log(`Written vision_${i}${j}${reqs[k].number}.json`);
         }
-        ++l;
     }
 }
 
