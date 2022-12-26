@@ -26,46 +26,81 @@ export default function Home() {
           content="Lookout - A New way to look at images"
         />
         <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1"
+          key="viewport"
+        />
         <meta
           name="keywords"
           content="Lookout, Image Search, Metadata, ML, Supabase, Typesense, Design"
+          key="keywords"
         />
         <meta
           name="description"
           content="Metadata based Image Search using an ML processing pipeline"
+          key="description"
         />
         <meta
           property="og:image"
           content="https://i3.lensdump.com/i/ROvj3Q.png"
+          key="og:image"
         />
         <meta
           property="og:image:secure_url"
           content="https://i3.lensdump.com/i/ROvj3Q.png"
+          key="og:image:secure_url"
         />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1920" />
-        <meta property="og:image:height" content="1080" />
-        <meta property="og:image:alt" content="Banner image for Lookout" />
-        <meta property="og:title" content="Lookout" />
+        <meta
+          property="og:image:type"
+          content="image/png"
+          key="og:image:type"
+        />
+        <meta property="og:image:width" content="1920" key="og:image:width" />
+        <meta property="og:image:height" content="1080" key="og:image:height" />
+        <meta
+          property="og:image:alt"
+          content="Banner image for Lookout"
+          key="og:image:alt"
+        />
+        <meta property="og:title" content="Lookout" key="og:title" />
         <meta
           property="og:description"
           content="Metadata based Image Search using an ML processing pipeline. Explore more!"
+          key="og:description"
         />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@sabeshbharathi" />
-        <meta name="twitter:creator" content="@sabeshbharathi" />
-        <meta name="twitter:title" content="Lookout" />
+        <meta property="og:type" content="website" key="og:type" />
+        <meta
+          name="twitter:card"
+          content="summary_large_image"
+          key="twitter:card"
+        />
+        <meta
+          name="twitter:site"
+          content="@sabeshbharathi"
+          key="twitter:site"
+        />
+        <meta
+          name="twitter:creator"
+          content="@sabeshbharathi"
+          key="twitter:creator"
+        />
+        <meta name="twitter:title" content="Lookout" key="twitter:title" />
         <meta
           name="twitter:description"
           content="Metadata based Image Search using an ML processing pipeline. Explore more!"
+          key="twitter:description"
         />
         <meta
           name="twitter:image"
           content="https://i3.lensdump.com/i/ROvj3Q.png"
+          key="twitter:image"
         />
-        <meta name="twitter:image:alt" content="Banner image for Lookout" />
+        <meta
+          name="twitter:image:alt"
+          content="Banner image for Lookout"
+          key="twitter:image:alt"
+        />
       </Head>
       <main className="min-h-screen dark-pattern p-10 flex flex-col items-center justify-center after-splash">
         <BlurryCircle />
