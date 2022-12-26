@@ -56,8 +56,8 @@ export default function Home() {
           content="image/png"
           key="og:image:type"
         />
-        <meta property="og:image:width" content="1920" key="og:image:width" />
-        <meta property="og:image:height" content="1080" key="og:image:height" />
+        <meta property="og:image:width" content="3248" key="og:image:width" />
+        <meta property="og:image:height" content="1990" key="og:image:height" />
         <meta
           property="og:image:alt"
           content="Banner image for Lookout"
