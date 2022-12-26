@@ -124,45 +124,41 @@ const Hits = ({ hits, hasMore, refineNext }) => {
       {hits.map((hit, index) => (
         <div className="w-max mx-4 my-8 imgCard" key={hit.id}>
           <div className="card">
-            <div className="card__wrapper">
-              <div className="card__3d" ref={cardThreeDRefs.current[index]}>
-                <div
-                  className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]"
-                  ref={cardRefs.current[index]}
-                  onMouseMove={(e) => onTiltCard(e, index)}
-                  onMouseLeave={(e) => onUntiltCard(e, index)}
-                >
-                  <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/30  hover:bg-black/30 z-10">
-                    <div className="px-4 drop-shadow-lg">
-                      <a
-                        href={hit.post_url}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                      >
+            <a href={hit.post_url} target="_blank" rel="noreferrer noopener">
+              <div className="card__wrapper">
+                <div className="card__3d" ref={cardThreeDRefs.current[index]}>
+                  <div
+                    className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]"
+                    ref={cardRefs.current[index]}
+                    onMouseMove={(e) => onTiltCard(e, index)}
+                    onMouseLeave={(e) => onUntiltCard(e, index)}
+                  >
+                    <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/30  hover:bg-black/30 z-10">
+                      <div className="px-4 drop-shadow-lg">
                         <SourceLogo source={hit.source} />
-                      </a>
+                      </div>
+                      <div className="flex px-2 overflow-scroll">
+                        {hit.labels.map((label) => (
+                          <div
+                            className="mx-2 whitespace-nowrap  font-silk text-white bg-black/50 text-xs md:text-sm font-bold  rounded-md p-1"
+                            key={label.id}
+                          >
+                            {label}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="flex px-2 overflow-scroll">
-                      {hit.labels.map((label) => (
-                        <div
-                          className="mx-2 whitespace-nowrap  font-silk text-white bg-black/50 text-xs md:text-sm font-bold  rounded-md p-1"
-                          key={label.id}
-                        >
-                          {label}
-                        </div>
-                      ))}
+                    <div className="card__image">
+                      <img
+                        src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
+                        alt={hit.title}
+                        className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-lg"
+                      />
                     </div>
-                  </div>
-                  <div className="card__image">
-                    <img
-                      src={process.env.NEXT_PUBLIC_BLOB_URL + hit.image_url}
-                      alt={hit.title}
-                      className="w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px] rounded-md"
-                    />
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       ))}
