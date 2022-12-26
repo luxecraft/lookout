@@ -37,11 +37,11 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content="https://i3.lensdump.com/i/ROvj3Q.png"
+          content="https://i3.lensdump.com/i/ROvj3Q.th.png"
         />
         <meta
           property="og:image:secure_url"
-          content="https://i3.lensdump.com/i/ROvj3Q.png"
+          content="https://i3.lensdump.com/i/ROvj3Q.th.png"
         />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1920" />
@@ -63,7 +63,7 @@ export default function Home() {
         />
         <meta
           name="twitter:image"
-          content="https://i3.lensdump.com/i/ROvj3Q.png"
+          content="https://i3.lensdump.com/i/ROvj3Q.th.png"
         />
         <meta name="twitter:image:alt" content="Banner image for Lookout" />
       </Head>
