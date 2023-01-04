@@ -1,4 +1,4 @@
-import "../styles/dist.css";
+import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { InstantSearch } from "react-instantsearch-dom";
 import searchClient from "../lib/TypesenseConfig";
