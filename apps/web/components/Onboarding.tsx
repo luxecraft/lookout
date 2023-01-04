@@ -23,7 +23,7 @@ const Onboarding = (props: Props) => {
           the images.
         </li>
         <li>
-          {">"} We have populated hudreds of thousands of images for you to
+          {">"} We have populated hundreds of thousands of images for you to
           explore.
         </li>
         <li>
