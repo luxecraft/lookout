@@ -47,7 +47,7 @@ class LoginScreen extends ConsumerWidget {
                                         '> You can also search for textual data that can be found inside the images.\n\n'),
                                 TextSpan(
                                     text:
-                                        '> We have populated hudreds of thousands of images for you to explore.\n\n'),
+                                        '> We have populated hundreds of thousands of images for you to explore.\n\n'),
                                 TextSpan(
                                     text:
                                         '> The most exciting part is that you can upload your own images and have them processed to brand it with tags and keywords!.\n'),
