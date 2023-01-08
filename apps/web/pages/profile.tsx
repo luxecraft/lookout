@@ -1,7 +1,13 @@
 import { AuthUser as User } from "@supabase/supabase-js";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { createRef, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  createRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import Masonry from "react-masonry-css";
 import AddPictureBtn from "../components/AddPictureBtn";
 import AuthCard from "../components/AuthCard";
@@ -12,6 +18,7 @@ import SourceLogo from "../lib/SourceLogo";
 import supabase from "../lib/SupabaseClientConfig";
 import axios from "axios";
 import { isEqual } from "lodash";
+import Spinner from "../components/Spinner";
 
 type Props = {};
 
@@ -32,6 +39,7 @@ const ProfilePage = (props: Props) => {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [userPosts, setUserPosts] = useState<any>([]);
+  const [postsLoading, setPostsLoading] = useState(true);
 
   useEffect(() => {
     updatePosts();
@@ -73,17 +81,20 @@ const ProfilePage = (props: Props) => {
   };
   useEffect(() => {
     const user = getUser();
-    user.then((res) => {
-      if (res) {
-        if (res.data.user != null) {
-          setUser(res.data.user);
-          return;
+    user
+      .then((res) => {
+        if (res) {
+          if (res.data.user != null) {
+            setUser(res.data.user);
+            return;
+          }
         }
-      }
-      router.push("/");
-    });
+        router.push("/");
+      })
+      .finally(() => {
+        setPostsLoading(false);
+      });
   }, [router]);
-
 
   const updatePosts = async () => {
     //Get all images of user with user id
@@ -99,10 +110,14 @@ const ProfilePage = (props: Props) => {
   };
 
   const cardRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
-  cardRefs.current = userPosts.map((_, i) => cardRefs.current[i] = createRef());
+  cardRefs.current = userPosts.map(
+    (_, i) => (cardRefs.current[i] = createRef())
+  );
 
   const cardThreeDRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
-  cardThreeDRefs.current = userPosts.map((_, i) => cardThreeDRefs.current[i] = createRef());
+  cardThreeDRefs.current = userPosts.map(
+    (_, i) => (cardThreeDRefs.current[i] = createRef())
+  );
 
   const onTiltCard = useCallback((e: React.MouseEvent, index: number) => {
     let w = cardRefs.current[index].current?.clientWidth;
@@ -115,15 +130,19 @@ const ProfilePage = (props: Props) => {
     let rY = (Y - 0.5) * 26;
 
     if (cardThreeDRefs.current[index].current) {
-      cardThreeDRefs.current[index].current!.style.transform = `rotateY(${rX}deg) rotateX(${rY}deg)`;
+      cardThreeDRefs.current[
+        index
+      ].current!.style.transform = `rotateY(${rX}deg) rotateX(${rY}deg)`;
     }
   }, []);
 
   const onUntiltCard = useCallback((e: React.MouseEvent, index: number) => {
     if (cardThreeDRefs.current[index].current) {
-      cardThreeDRefs.current[index].current!.style.transform = `rotateY(0deg) rotateX(0deg)`;
+      cardThreeDRefs.current[
+        index
+      ].current!.style.transform = `rotateY(0deg) rotateX(0deg)`;
     }
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -146,13 +165,19 @@ const ProfilePage = (props: Props) => {
               <div className="card">
                 <div className="card__wrapper">
                   <div className="card__3d" ref={cardThreeDRefs.current[i]}>
-                    <div className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]" ref={cardRefs.current[i]} onMouseMove={(e) => onTiltCard(e, i)} onMouseLeave={(e) => onUntiltCard(e, i)}>
+                    <div
+                      className="relative shadow-xl hover:scale-105 duration-500 transition-all rounded-md cursor-pointer overflow-hidden w-full max-w-[150px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[260px]"
+                      ref={cardRefs.current[i]}
+                      onMouseMove={(e) => onTiltCard(e, i)}
+                      onMouseLeave={(e) => onUntiltCard(e, i)}
+                    >
                       <div className="absolute flex flex-col justify-between py-4 h-full w-full duration-500 hover:opacity-100 opacity-0 hover:dark:bg-white/40 hover:bg-black/40 z-10">
                         <div className="px-4 drop-shadow-lg">
                           <a href={hit.post_url}>
                             <SourceLogo
                               source={
-                                user?.user_metadata.avatar_url ?? placeholderIcon
+                                user?.user_metadata.avatar_url ??
+                                placeholderIcon
                               }
                             />
                           </a>
@@ -182,11 +207,17 @@ const ProfilePage = (props: Props) => {
             </div>
           ))}
         </Masonry>
-        {userPosts.length == 0 && (
+        {userPosts.length == 0 && !postsLoading && (
           <div className="font-silk">
             <h1 className=" md:text-2xl text-center font-bold">
               Add some images to get started
             </h1>
+          </div>
+        )}
+
+        {postsLoading && (
+          <div className="my-40">
+            <Spinner />
           </div>
         )}
       </main>
